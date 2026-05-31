@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import bcryptjs from "bcryptjs";
 import { prisma } from './prisma';
 
-const secretKey = process.env.JWT_SECRET || "fallback-secret-key-change-in-production";
+const secretKey = process.env.JWT_SECRET;
 const key = new TextEncoder().encode(secretKey);
 
 export async function encrypt(payload: any) {
