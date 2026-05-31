@@ -20,6 +20,19 @@ model Room {
   updatedAt   DateTime @updatedAt
 }
 
+model Contact {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  message   String
+  checkIn   String?
+  checkOut  String?
+  guests    String?
+  createdAt DateTime @default(now())
+  read      Boolean  @default(false)
+}
+
 model Admin {
   id       Int    @id @default(autoincrement())
   username String @unique

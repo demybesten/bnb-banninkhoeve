@@ -14,7 +14,9 @@
     "setup": "npm run db:generate && npm run db:push && npm run db:seed"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@prisma/client": "^5.22.0",
+    "@react-google-maps/api": "^2.20.8",
     "@types/formidable": "^3.5.1",
     "bcryptjs": "^3.0.3",
     "formidable": "^3.5.4",
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/bcryptjs": "^3.0.0",
+    "@types/google.maps": "^3.65.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import GoogleReviews from '@/components/GoogleReviews'
 
 export default async function Home() {
   const rooms = await prisma.room.findMany({
@@ -69,6 +70,7 @@ export default async function Home() {
             </div>
           </div>
         </section>
+        <GoogleReviews />
 
         {/* Featured Rooms Section */}
         {rooms.length > 0 && (
