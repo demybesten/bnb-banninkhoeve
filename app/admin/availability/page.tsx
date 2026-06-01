@@ -1,4 +1,6 @@
-// app/admin/availability/page.tsx
+// app/admin/availability/page.tsx - Remove the <nav> section at the top
+// Keep everything from the max-w-7xl div onwards
+
 'use client'
 
 import { useState, useEffect } from 'react'
@@ -42,41 +44,35 @@ export default function AvailabilityManagement() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 py-4">
-                    <h1 className="text-2xl font-bold text-amber-800">Manage Availability</h1>
-                </div>
-            </nav>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8">Manage Availability</h1>
 
-            <div className="max-w-7xl mx-auto px-4 py-8">
-                {/* Room Selector */}
-                <div className="mb-8">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Select Room
-                    </label>
-                    <div className="flex gap-4">
-                        {rooms.map(room => (
-                            <button
-                                key={room.id}
-                                onClick={() => setSelectedRoom(room.id)}
-                                className={`px-6 py-3 rounded-lg font-semibold transition ${
-                                    selectedRoom === room.id
-                                        ? 'bg-amber-800 text-white'
-                                        : 'bg-white text-gray-700 hover:bg-amber-50'
-                                }`}
-                            >
-                                {room.name}
-                            </button>
-                        ))}
-                    </div>
+            {/* Room Selector */}
+            <div className="mb-8">
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                    Select Room
+                </label>
+                <div className="flex gap-3 flex-wrap">
+                    {rooms.map(room => (
+                        <button
+                            key={room.id}
+                            onClick={() => setSelectedRoom(room.id)}
+                            className={`px-6 py-3 rounded-lg font-semibold transition ${
+                                selectedRoom === room.id
+                                    ? 'bg-amber-800 text-white shadow-lg'
+                                    : 'bg-white text-gray-700 hover:bg-amber-50 shadow'
+                            }`}
+                        >
+                            {room.name}
+                        </button>
+                    ))}
                 </div>
-
-                {/* Calendar */}
-                {selectedRoom && (
-                    <AvailabilityCalendar roomId={selectedRoom} isAdmin={true} />
-                )}
             </div>
+
+            {/* Calendar */}
+            {selectedRoom && (
+                <AvailabilityCalendar roomId={selectedRoom} isAdmin={true} />
+            )}
         </div>
     )
 }
