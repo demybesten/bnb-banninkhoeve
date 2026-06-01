@@ -18,23 +18,23 @@ model Room {
   images      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-}
-
-model Contact {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  phone     String?
-  message   String
-  checkIn   String?
-  checkOut  String?
-  guests    String?
-  createdAt DateTime @default(now())
-  read      Boolean  @default(false)
+  bookings    Booking[]
 }
 
 model Admin {
   id       Int    @id @default(autoincrement())
   username String @unique
   password String
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  roomId    Int
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  checkIn   DateTime
+  checkOut  DateTime
+  guestName String?
+  status    String   @default("confirmed") // confirmed, cancelled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

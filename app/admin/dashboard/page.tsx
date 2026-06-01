@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
-import { HiPencil, HiTrash, HiPlus } from 'react-icons/hi'
+import {HiPencil, HiTrash, HiPlus, HiCalendar} from 'react-icons/hi'
 
 interface Room {
     id: number
@@ -89,6 +89,13 @@ export default function AdminDashboard() {
                 <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                     <h1 className="text-2xl font-bold text-amber-800">Admin Dashboard</h1>
                     <div className="flex gap-4 items-center">
+                        <Link
+                            href="/admin/availability"
+                            className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2"
+                        >
+                            <HiCalendar />
+                            Manage Availability
+                        </Link>
                         <Link
                             href="/admin/rooms/new"
                             className="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition flex items-center gap-2"

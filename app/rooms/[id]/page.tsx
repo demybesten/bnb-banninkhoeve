@@ -1,6 +1,8 @@
 // app/rooms/[id]/page.tsx
 import { prisma } from '@/lib/prisma'
 import RoomGallery from '@/components/RoomGallery'
+import BookingWidget from '@/components/BookingWidget'
+import AvailabilityCalendar from '@/components/AvailabilityCalendar'
 
 export default async function RoomDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -40,6 +42,14 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                                 {room.description}
                             </p>
                         </div>
+                        <div className="mb-8">
+                            <AvailabilityCalendar
+                                roomId={room.id}
+                                roomName={room.name}
+                                roomPrice={room.price}
+                                roomCapacity={room.capacity}
+                            />
+                        </div>
 
                         {/* Amenities Grid */}
                         {amenities.length > 0 && (
@@ -57,30 +67,6 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                         )}
                     </div>
 
-                    {/* Sidebar - Booking Card */}
-                    <div className="lg:col-span-1">
-                        <div className="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-                            <div className="text-3xl font-bold text-amber-800 mb-2">
-                                ${room.price}
-                                <span className="text-lg font-normal text-gray-600">/night</span>
-                            </div>
-
-                            <div className="border-t border-b py-4 my-4">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <span>👤</span>
-                                    <span className="text-gray-700">Up to {room.capacity} guests</span>
-                                </div>
-                            </div>
-
-                            <button className="w-full bg-amber-800 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition mb-3">
-                                Book This Room
-                            </button>
-
-                            <button className="w-full border-2 border-amber-800 text-amber-800 py-3 rounded-lg font-semibold hover:bg-amber-50 transition">
-                                Contact Us
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -118,6 +118,35 @@ export default async function Home() {
               </div>
             </section>
         )}
+        {/* Why Book Direct Section */}
+        <section className="py-16 bg-green-50">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">Why Book Direct?</h2>
+            <div className="grid md:grid-cols-3 gap-8 mt-12">
+              <div className="bg-white p-6 rounded-lg shadow">
+                <div className="text-4xl mb-4">💰</div>
+                <h3 className="text-xl font-semibold mb-2">Best Price</h3>
+                <p className="text-gray-600">
+                  No booking fees or commission. Save up to 15% compared to booking platforms.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow">
+                <div className="text-4xl mb-4">🎁</div>
+                <h3 className="text-xl font-semibold mb-2">Special Perks</h3>
+                <p className="text-gray-600">
+                  Direct bookers get complimentary late checkout and welcome drinks.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow">
+                <div className="text-4xl mb-4">📞</div>
+                <h3 className="text-xl font-semibold mb-2">Personal Service</h3>
+                <p className="text-gray-600">
+                  Talk directly with us. We can customize your stay and accommodate special requests.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </>
   )
 }
