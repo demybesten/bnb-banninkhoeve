@@ -65,14 +65,21 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
 
     // Get all booked dates as a Set for quick lookup
 // Find this in AvailabilityCalendar.tsx (around line 65-76)
+// Find this function in AvailabilityCalendar.tsx and update it:
     const getBookedDates = (): Set<string> => {
         const dates = new Set<string>()
         bookings.forEach(booking => {
             if (booking.status === 'confirmed') {
                 const start = new Date(booking.checkIn)
                 const end = new Date(booking.checkOut)
-                for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    dates.add(d.toISOString().split('T')[0])  // Changed .set to .add
+
+                // Set both to midnight for consistent comparison
+                start.setHours(0, 0, 0, 0)
+                end.setHours(0, 0, 0, 0)
+
+                // Include the check-out date as booked (since guest occupies the room that night)
+                for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+                    dates.add(d.toISOString().split('T')[0])
                 }
             }
         })
