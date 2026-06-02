@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { HiChevronLeft, HiChevronRight, HiX } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
 
 interface RoomGalleryProps {
     images: string[]
@@ -10,13 +11,14 @@ interface RoomGalleryProps {
 }
 
 export default function RoomGallery({ images, roomName }: RoomGalleryProps) {
+    const t = useT()
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isFullscreen, setIsFullscreen] = useState(false)
 
     if (images.length === 0) {
         return (
             <div className="h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500">No images available</p>
+                <p className="text-gray-500">{t.gallery.noImages}</p>
             </div>
         )
     }
@@ -64,7 +66,7 @@ export default function RoomGallery({ images, roomName }: RoomGalleryProps) {
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
             <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 px-4 py-2 rounded-lg">
-              Click to view fullscreen
+              {t.gallery.clickFullscreen}
             </span>
                     </div>
 

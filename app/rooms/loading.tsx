@@ -1,8 +1,12 @@
-export default function RoomsLoading() {
+import { getTranslations, detectLocale } from '@/lib/i18n'
+
+export default async function RoomsLoading() {
+    const locale = await detectLocale()
+    const t = await getTranslations(locale)
     return (
         <div className="py-12">
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center mb-12">Our Rooms</h1>
+                <h1 className="text-4xl font-bold text-center mb-12">{t.rooms.title}</h1>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {[1, 2, 3].map((i) => (
                         <div key={i} className="bg-white rounded-lg shadow-lg overflow-hidden animate-pulse">

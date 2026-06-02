@@ -4,8 +4,11 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { HiMenu, HiX } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
+import LanguageSwitcher from '@/components/LanguageSwitcher'
 
 export default function Navigation() {
+    const t = useT()
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -14,28 +17,30 @@ export default function Navigation() {
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
                         <Link href="/" className="text-2xl font-bold text-amber-800">
-                            Cozy B&B
+                            {t.common.siteName}
                         </Link>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
+                    <div className="hidden md:flex items-center space-x-6">
                         <Link href="/" className="text-gray-700 hover:text-amber-600 transition">
-                            Home
+                            {t.nav.home}
                         </Link>
                         <Link href="/rooms" className="text-gray-700 hover:text-amber-600 transition">
-                            Rooms
+                            {t.nav.rooms}
                         </Link>
                         <Link href="/about" className="text-gray-700 hover:text-amber-600 transition">
-                            About
+                            {t.nav.about}
                         </Link>
                         <Link href="/contact" className="text-gray-700 hover:text-amber-600 transition">
-                            Contact
+                            {t.nav.contact}
                         </Link>
+                        <LanguageSwitcher />
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="md:hidden flex items-center">
+                    <div className="md:hidden flex items-center gap-2">
+                        <LanguageSwitcher />
                         <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700">
                             {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
                         </button>
@@ -45,10 +50,10 @@ export default function Navigation() {
                 {/* Mobile Navigation */}
                 {isOpen && (
                     <div className="md:hidden pb-4">
-                        <Link href="/" className="block py-2 text-gray-700">Home</Link>
-                        <Link href="/rooms" className="block py-2 text-gray-700">Rooms</Link>
-                        <Link href="/about" className="block py-2 text-gray-700">About</Link>
-                        <Link href="/contact" className="block py-2 text-gray-700">Contact</Link>
+                        <Link href="/" className="block py-2 text-gray-700">{t.nav.home}</Link>
+                        <Link href="/rooms" className="block py-2 text-gray-700">{t.nav.rooms}</Link>
+                        <Link href="/about" className="block py-2 text-gray-700">{t.nav.about}</Link>
+                        <Link href="/contact" className="block py-2 text-gray-700">{t.nav.contact}</Link>
                     </div>
                 )}
             </div>

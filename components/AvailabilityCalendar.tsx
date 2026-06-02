@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { HiTrash, HiPlus, HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
 
 interface Booking {
     id: number
@@ -22,6 +23,7 @@ interface AvailabilityCalendarProps {
 }
 
 export default function AvailabilityCalendar({ roomId, roomName, roomPrice, roomCapacity, isAdmin = false }: AvailabilityCalendarProps) {
+    const t = useT()
     const [bookings, setBookings] = useState<Booking[]>([])
     const [loading, setLoading] = useState(true)
     const [showAddForm, setShowAddForm] = useState(false)
@@ -64,7 +66,6 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
     }
 
     // Get all booked dates as a Set for quick lookup
-// Find this in AvailabilityCalendar.tsx (around line 65-76)
     const getBookedDates = (): Set<string> => {
         const dates = new Set<string>()
         bookings.forEach(booking => {
@@ -72,7 +73,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 const start = new Date(booking.checkIn)
                 const end = new Date(booking.checkOut)
                 for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    dates.add(d.toISOString().split('T')[0])  // Changed .set to .add
+                    dates.add(d.toISOString().split('T')[0])
                 }
             }
         })
@@ -97,9 +98,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
     }
 
     // Check if a date range overlaps with any bookings
-// Update hasOverlap to be more precise:
     const hasOverlap = (start: Date, end: Date): boolean => {
-        // Set times to midnight for accurate comparison
         const rangeStart = new Date(start)
         rangeStart.setHours(0, 0, 0, 0)
         const rangeEnd = new Date(end)
@@ -112,29 +111,24 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             const bEnd = new Date(booking.checkOut)
             bEnd.setHours(23, 59, 59, 999)
 
-            // Check if ranges overlap
             return rangeStart < bEnd && rangeEnd > bStart
         })
     }
 
     // Handle date click for booking
-// Replace the handleDateClick function with this:
     const handleDateClick = (date: Date) => {
         if (isAdmin || isDateBooked(date) || date < new Date(new Date().setHours(0,0,0,0))) return
 
-        // If clicking the same date as selected start (and no end selected), unselect it
         if (selectedStart && !selectedEnd && date.getTime() === selectedStart.getTime()) {
             setSelectedStart(null)
             return
         }
 
-        // If clicking the same date as selected end, just remove the end
         if (selectedEnd && date.getTime() === selectedEnd.getTime()) {
             setSelectedEnd(null)
             return
         }
 
-        // If clicking the same date as selected start (with end selected), clear everything
         if (selectedStart && date.getTime() === selectedStart.getTime()) {
             setSelectedStart(null)
             setSelectedEnd(null)
@@ -142,28 +136,23 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         }
 
         if (!selectedStart || (selectedStart && selectedEnd)) {
-            // Start new selection
             setSelectedStart(date)
             setSelectedEnd(null)
         } else {
-            // Complete selection - check if range is valid
             if (date < selectedStart) {
-                // If clicked before start, swap
                 const tempStart = date
                 const tempEnd = selectedStart
 
-                // Check if this range overlaps with any bookings
                 if (hasOverlap(tempStart, tempEnd)) {
-                    toast.error('This date range overlaps with booked dates. Please select available dates only.')
+                    toast.error(t.booking.overlapError)
                     return
                 }
 
                 setSelectedStart(tempStart)
                 setSelectedEnd(tempEnd)
             } else {
-                // Check if this range overlaps with any bookings
                 if (hasOverlap(selectedStart, date)) {
-                    toast.error('This date range overlaps with booked dates. Please select available dates only.')
+                    toast.error(t.booking.overlapError)
                     return
                 }
 
@@ -215,22 +204,22 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 from_name: bookingForm.name,
                 reply_to: bookingForm.email,
                 phone: bookingForm.phone,
-                message: bookingForm.message || 'No special requests',
+                message: bookingForm.message || t.booking.noSpecialRequests,
                 check_in: selectedStart.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
                 check_out: selectedEnd.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
                 guests: bookingForm.guests,
                 room_name: roomName || `Room #${roomId}`,
                 nights: nights,
-                total_price: totalPrice > 0 ? `$${totalPrice}` : 'To be confirmed',
+                total_price: totalPrice > 0 ? `$${totalPrice}` : t.booking.toBeConfirmed,
             })
 
-            toast.success('Booking request sent! We\'ll confirm availability shortly.')
+            toast.success(t.booking.successToastAlt)
             setSelectedStart(null)
             setSelectedEnd(null)
             setShowBookingForm(false)
             setBookingForm({ name: '', email: '', phone: '', guests: '2', message: '' })
         } catch (err) {
-            toast.error('Failed to send. Please try again or call us.')
+            toast.error(t.booking.errorToastAlt)
         } finally {
             setSending(false)
         }
@@ -285,18 +274,16 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))
     }
 
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December']
-    const monthName = `${months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`
+    const monthName = `${t.calendar.months[currentMonth.getMonth()]} ${currentMonth.getFullYear()}`
 
     const year = currentMonth.getFullYear()
     const month = currentMonth.getMonth()
     const daysInMonth = new Date(year, month + 1, 0).getDate()
     const firstDayOfMonth = new Date(year, month, 1).getDay()
-
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     const today = new Date()
     today.setHours(0, 0, 0, 0)
+
+    const nights = calculateNights()
 
     return (
         <div className="bg-white rounded-lg shadow p-6">
@@ -316,7 +303,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                         onClick={() => setShowAddForm(!showAddForm)}
                         className="flex items-center gap-2 bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition text-sm"
                     >
-                        <HiPlus /> Block Dates
+                        <HiPlus /> {t.calendar.blockDates}
                     </button>
                 )}
             </div>
@@ -324,15 +311,14 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             {selectedStart && selectedEnd && (
                 <div className="mt-2">
                     <p className="text-sm text-gray-600">
-                        {calculateNights()} {calculateNights() === 1 ? 'night' : 'nights'}
-                        {roomPrice && ` · $${roomPrice}/night · Total: $${calculateNights() * roomPrice}`}
+                        {nights} {nights === 1 ? t.booking.night : t.booking.nights}
+                        {roomPrice && ` · $${roomPrice}/${t.booking.night} · ${t.booking.total}: $${nights * roomPrice}`}
                     </p>
                     <button
                         onClick={() => {
-                            // Double-check validity before showing form
                             if (!selectedStart || !selectedEnd) return
                             if (hasOverlap(selectedStart, selectedEnd)) {
-                                toast.error('Selected dates overlap with booked dates. Please reselect.')
+                                toast.error(t.booking.overlapReselect)
                                 setSelectedStart(null)
                                 setSelectedEnd(null)
                                 return
@@ -341,7 +327,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                         }}
                         className="mt-2 bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition text-sm"
                     >
-                        Book These Dates
+                        {t.booking.bookTheseDates}
                     </button>
                 </div>
             )}
@@ -351,13 +337,13 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 <form onSubmit={addBlockedDates} className="mb-6 bg-amber-50 p-4 rounded-lg">
                     <div className="grid grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1">Check-in</label>
+                            <label className="block text-sm font-medium mb-1">{t.booking.checkIn}</label>
                             <input type="date" required value={newBooking.checkIn}
                                    onChange={(e) => setNewBooking({ ...newBooking, checkIn: e.target.value })}
                                    className="w-full px-3 py-2 border rounded-md text-sm" />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium mb-1">Check-out</label>
+                            <label className="block text-sm font-medium mb-1">{t.booking.checkOut}</label>
                             <input type="date" required value={newBooking.checkOut}
                                    onChange={(e) => setNewBooking({ ...newBooking, checkOut: e.target.value })}
                                    min={newBooking.checkIn}
@@ -382,38 +368,38 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             {showBookingForm && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
-                        <h3 className="text-xl font-semibold mb-4">Complete Your Booking</h3>
+                        <h3 className="text-xl font-semibold mb-4">{t.booking.completeBooking}</h3>
 
                         {/* Booking Summary */}
                         <div className="mb-4 p-3 bg-gray-50 rounded">
-                            <p className="text-sm"><strong>Room:</strong> {roomName}</p>
-                            <p className="text-sm"><strong>Check-in:</strong> {selectedStart && formatDate(selectedStart)}</p>
-                            <p className="text-sm"><strong>Check-out:</strong> {selectedEnd && formatDate(selectedEnd)}</p>
-                            <p className="text-sm"><strong>Nights:</strong> {calculateNights()}</p>
+                            <p className="text-sm"><strong>{t.booking.bookingSummary.room}</strong> {roomName}</p>
+                            <p className="text-sm"><strong>{t.booking.bookingSummary.checkIn}</strong> {selectedStart && formatDate(selectedStart)}</p>
+                            <p className="text-sm"><strong>{t.booking.bookingSummary.checkOut}</strong> {selectedEnd && formatDate(selectedEnd)}</p>
+                            <p className="text-sm"><strong>{t.booking.bookingSummary.nights}</strong> {nights}</p>
                             {roomPrice && (
                                 <p className="text-sm font-semibold text-amber-800">
-                                    <strong>Estimated Total:</strong> ${calculateNights() * roomPrice}
+                                    <strong>{t.booking.bookingSummary.estimatedTotal}</strong> ${nights * roomPrice}
                                 </p>
                             )}
                         </div>
 
                         <form onSubmit={handleBookingSubmit} className="space-y-3">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">{t.booking.form.name}</label>
                                 <input type="text" required value={bookingForm.name}
                                        onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
                                        className="w-full px-3 py-2 border rounded-md text-sm" />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">{t.booking.form.email}</label>
                                 <input type="email" required value={bookingForm.email}
                                        onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
                                        className="w-full px-3 py-2 border rounded-md text-sm" />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">{t.booking.form.phone}</label>
                                 <input type="tel" value={bookingForm.phone}
                                        onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
                                        className="w-full px-3 py-2 border rounded-md text-sm" />
@@ -422,8 +408,8 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                             {/* Guests Selector*/}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Number of Guests *
-                                    <span className="text-gray-500 font-normal"> (Max {roomCapacity})</span>
+                                    {t.booking.form.numberOfGuests}
+                                    <span className="text-gray-500 font-normal"> {t.booking.form.maxCapacity.replace('{capacity}', String(roomCapacity))}</span>
                                 </label>
                                 <select
                                     required
@@ -435,7 +421,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                                         const num = i + 1
                                         return (
                                             <option key={num} value={num}>
-                                                {num} {num === 1 ? 'Guest' : 'Guests'}
+                                                {num} {num === 1 ? t.booking.guest : t.booking.guestsPlural}
                                             </option>
                                         )
                                     })}
@@ -443,21 +429,21 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Special Requests</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">{t.booking.form.message}</label>
                                 <textarea rows={3} value={bookingForm.message}
                                           onChange={(e) => setBookingForm({ ...bookingForm, message: e.target.value })}
-                                          placeholder="Any special requirements or questions?"
+                                          placeholder={t.booking.form.messagePlaceholderAlt}
                                           className="w-full px-3 py-2 border rounded-md text-sm" />
                             </div>
 
                             <button type="submit" disabled={sending}
                                     className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 disabled:opacity-50 font-semibold">
-                                {sending ? 'Sending...' : 'Send Booking Request'}
+                                {sending ? t.booking.form.sending : t.booking.form.submit}
                             </button>
 
                             <button type="button" onClick={() => setShowBookingForm(false)}
                                     className="w-full text-sm text-gray-500 hover:text-gray-700 py-1">
-                                Cancel
+                                {t.booking.form.cancel}
                             </button>
                         </form>
                     </div>
@@ -466,7 +452,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
 
             {/* Calendar Grid */}
             <div className="grid grid-cols-7 gap-1">
-                {days.map(day => (
+                {t.calendar.days.map(day => (
                     <div key={day} className="text-center text-sm font-semibold text-gray-600 py-2">{day}</div>
                 ))}
                 {[...Array(firstDayOfMonth)].map((_, i) => (
@@ -509,22 +495,22 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             <div className="flex gap-6 mt-6 text-sm">
                 <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-red-100 rounded border border-red-200" />
-                    <span>Booked</span>
+                    <span>{t.calendar.legend.booked}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-amber-200 rounded border border-amber-300" />
-                    <span>Selected</span>
+                    <span>{t.calendar.legend.selected}</span>
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-gray-50 rounded border" />
-                    <span>Available</span>
+                    <span>{t.calendar.legend.available}</span>
                 </div>
             </div>
 
             {/* Bookings List (Admin) */}
             {isAdmin && bookings.length > 0 && (
                 <div className="mt-6 border-t pt-4">
-                    <h4 className="font-semibold mb-3">Upcoming Bookings</h4>
+                    <h4 className="font-semibold mb-3">{t.calendar.upcomingBookings}</h4>
                     <div className="space-y-2">
                         {bookings.map(booking => (
                             <div key={booking.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-lg text-sm">

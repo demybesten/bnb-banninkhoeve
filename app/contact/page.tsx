@@ -5,8 +5,10 @@ import { useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import MapComponent from '@/components/GoogleMap'
 import { sendContactEmail } from '@/lib/emailjs'
+import { useT } from '@/lib/i18n-client'
 
 export default function ContactPage() {
+    const t = useT()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -27,7 +29,7 @@ export default function ContactPage() {
                 message: formData.message,
             })
 
-            toast.success('Message sent successfully! We\'ll get back to you soon.')
+            toast.success(t.contact.successToast)
             setFormData({
                 name: '',
                 email: '',
@@ -35,7 +37,7 @@ export default function ContactPage() {
                 message: '',
             })
         } catch (err) {
-            toast.error('Failed to send message. Please try again.')
+            toast.error(t.contact.errorToast)
         } finally {
             setSending(false)
         }
@@ -51,35 +53,35 @@ export default function ContactPage() {
         <div className="py-12">
             <Toaster position="top-center" />
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center mb-12">Contact Us</h1>
+                <h1 className="text-4xl font-bold text-center mb-12">{t.contact.title}</h1>
 
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
                     <div>
-                        <h2 className="text-3xl font-semibold mb-6">Get in Touch</h2>
+                        <h2 className="text-3xl font-semibold mb-6">{t.contact.getInTouch}</h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">📍 Address</h3>
-                                <p className="text-gray-700">123 Main Street</p>
-                                <p className="text-gray-700">City, State 12345</p>
+                                <h3 className="text-xl font-semibold mb-2">📍 {t.contact.address}</h3>
+                                <p className="text-gray-700">{t.contact.addressLine1}</p>
+                                <p className="text-gray-700">{t.contact.addressLine2}</p>
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">📞 Phone</h3>
-                                <p className="text-gray-700">(555) 123-4567</p>
+                                <h3 className="text-xl font-semibold mb-2">📞 {t.contact.phone}</h3>
+                                <p className="text-gray-700">{t.contact.phoneNumber}</p>
                             </div>
                             <div>
-                                <h3 className="text-xl font-semibold mb-2">✉️ Email</h3>
-                                <p className="text-gray-700">info@cozybnb.com</p>
+                                <h3 className="text-xl font-semibold mb-2">✉️ {t.contact.email}</h3>
+                                <p className="text-gray-700">{t.contact.emailAddress}</p>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <h2 className="text-3xl font-semibold mb-6">Send us a Message</h2>
+                        <h2 className="text-3xl font-semibold mb-6">{t.contact.sendMessage}</h2>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Name *
+                                        {t.contact.form.name}
                                     </label>
                                     <input
                                         type="text"
@@ -91,7 +93,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Email *
+                                        {t.contact.form.email}
                                     </label>
                                     <input
                                         type="email"
@@ -105,7 +107,7 @@ export default function ContactPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Phone
+                                    {t.contact.form.phone}
                                 </label>
                                 <input
                                     type="tel"
@@ -117,7 +119,7 @@ export default function ContactPage() {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Message *
+                                    {t.contact.form.message}
                                 </label>
                                 <textarea
                                     rows={5}
@@ -125,7 +127,7 @@ export default function ContactPage() {
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
-                                    placeholder="Tell us about your stay or any questions..."
+                                    placeholder={t.contact.form.messagePlaceholder}
                                 />
                             </div>
 
@@ -134,7 +136,7 @@ export default function ContactPage() {
                                 disabled={sending}
                                 className="w-full bg-amber-800 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition disabled:opacity-50"
                             >
-                                {sending ? 'Sending...' : 'Send Message'}
+                                {sending ? t.contact.form.sending : t.contact.form.submit}
                             </button>
                         </form>
                     </div>
@@ -142,7 +144,7 @@ export default function ContactPage() {
 
                 {/* Google Map */}
                 <div className="mb-16">
-                    <h2 className="text-3xl font-semibold text-center mb-8">Find Us</h2>
+                    <h2 className="text-3xl font-semibold text-center mb-8">{t.contact.findUs}</h2>
                     <div className="rounded-lg overflow-hidden shadow-lg">
                         <MapComponent center={bnbLocation} />
                     </div>
