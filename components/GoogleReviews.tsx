@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react'
 import { HiStar } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
 
 interface Review {
     author_name: string
@@ -13,6 +14,7 @@ interface Review {
 }
 
 export default function GoogleReviews() {
+    const t = useT()
     const [reviews, setReviews] = useState<Review[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
@@ -23,14 +25,13 @@ export default function GoogleReviews() {
 
     const fetchReviews = async () => {
         try {
-            // You'll need to set up a Google Places API endpoint
             const res = await fetch('/api/reviews')
             if (res.ok) {
                 const data = await res.json()
                 setReviews(data.reviews || [])
             }
         } catch (err) {
-            setError('Failed to load reviews')
+            setError(t.reviews.error)
         } finally {
             setLoading(false)
         }
@@ -39,7 +40,7 @@ export default function GoogleReviews() {
     if (loading) {
         return (
             <div className="text-center py-8">
-                <div className="animate-pulse">Loading reviews...</div>
+                <div className="animate-pulse">{t.reviews.loading}</div>
             </div>
         )
     }
@@ -56,14 +57,14 @@ export default function GoogleReviews() {
         <div className="py-12">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold mb-4">What Our Guests Say</h2>
+                    <h2 className="text-4xl font-bold mb-4">{t.reviews.title}</h2>
                     <a
                         href={`https://search.google.com/local/reviews?placeid=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-amber-800 hover:text-amber-600 underline"
                     >
-                        Read all reviews on Google
+                        {t.reviews.readAll}
                     </a>
                 </div>
 

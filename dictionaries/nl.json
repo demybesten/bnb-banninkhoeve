@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Cozy B&B - Uw Thuis Weg Van Huis",
+    "description": "Ervaar comfort en luxe in onze charmante bed & breakfast"
+  },
+  "common": {
+    "siteName": "Cozy B&B",
+    "loading": "Laden..."
+  },
+  "nav": {
+    "home": "Home",
+    "rooms": "Kamers",
+    "about": "Over Ons",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "Uw thuis weg van huis in het hart van de stad.",
+    "contact": "Contact",
+    "address": "Hoofdstraat 123",
+    "cityState": "Stad, Provincie 12345",
+    "phone": "Tel: (555) 123-4567",
+    "email": "E-mail: info@cozybnb.com",
+    "quickLinks": "Snelle Links",
+    "ourRooms": "Onze Kamers",
+    "aboutUs": "Over Ons",
+    "contactLink": "Contact",
+    "copyright": "© 2024 Cozy B&B. Alle rechten voorbehouden."
+  },
+  "home": {
+    "hero": {
+      "title": "Welkom bij Cozy B&B",
+      "subtitle": "Ervaar comfort, luxe en warme gastvrijheid",
+      "viewRooms": "Bekijk Kamers",
+      "contactUs": "Neem Contact Op"
+    },
+    "features": {
+      "title": "Waarom Voor Ons Kiezen",
+      "comfortable": {
+        "title": "Comfortabele Kamers",
+        "description": "Elke kamer is zorgvuldig ontworpen voor uw ultieme comfort en ontspanning."
+      },
+      "breakfast": {
+        "title": "Huisgemaakt Ontbijt",
+        "description": "Begin uw dag met een heerlijk, vers bereid ontbijt."
+      },
+      "location": {
+        "title": "Perfecte Locatie",
+        "description": "Centraal gelegen met gemakkelijke toegang tot alle belangrijke bezienswaardigheden."
+      }
+    },
+    "featuredRooms": {
+      "title": "Onze Kamers",
+      "pricePerNight": "€{price}/nacht",
+      "viewDetails": "Bekijk Details",
+      "viewAll": "Bekijk Alle Kamers"
+    },
+    "bookDirect": {
+      "title": "Waarom Direct Boeken?",
+      "bestPrice": {
+        "title": "Beste Prijs",
+        "description": "Geen boekingskosten of commissie. Bespaar tot 15% vergeleken met boekingsplatforms."
+      },
+      "perks": {
+        "title": "Speciale Extra's",
+        "description": "Directe boekers krijgen gratis late checkout en welkomstdrankjes."
+      },
+      "service": {
+        "title": "Persoonlijke Service",
+        "description": "Praat direct met ons. Wij kunnen uw verblijf aanpassen en speciale verzoeken accommoderen."
+      }
+    }
+  },
+  "about": {
+    "title": "Over Cozy B&B",
+    "ourStory": "Ons Verhaal",
+    "storyP1": "Welkom bij Cozy B&B, waar comfort en elegantie samenkomen. Onze charmante bed & breakfast verwelkomt gasten sinds 2010 en biedt een warme en uitnodigende sfeer waarin u zich meteen thuis voelt.",
+    "storyP2": "Gelegen in het hart van de stad, bieden wij de perfecte uitvalsbasis om lokale bezienswaardigheden te verkennen terwijl u geniet van een rustig en comfortabel verblijf.",
+    "storyP3": "Elke ochtend serveren wij een heerlijk huisgemaakt ontbijt met verse, lokaal geproduceerde ingrediënten. Onze kamers zijn individueel ingericht voor een uniek en onvergetelijk verblijf voor elke gast.",
+    "photoPlaceholder": "Foto van onze B&B",
+    "testimonials": {
+      "title": "Wat Onze Gasten Zeggen",
+      "testimonial1": "Geweldige ervaring! De kamer was prachtig en het ontbijt was heerlijk. Zeker voor herhaling vatbaar.",
+      "author1": "Sarah M.",
+      "testimonial2": "De perfecte plek voor een weekendje weg. De gastheren waren ongelooflijk gastvrij en behulpzaam met lokale aanbevelingen.",
+      "author2": "James & Emily T.",
+      "testimonial3": "Prachtig pand met aandacht voor elk detail. De tuin is prachtig en de locatie kon niet beter zijn.",
+      "author3": "Michael R."
+    }
+  },
+  "contact": {
+    "title": "Neem Contact Op",
+    "getInTouch": "Neem Contact Met Ons Op",
+    "address": "Adres",
+    "addressLine1": "Hoofdstraat 123",
+    "addressLine2": "Stad, Provincie 12345",
+    "phone": "Telefoon",
+    "phoneNumber": "(555) 123-4567",
+    "email": "E-mail",
+    "emailAddress": "info@cozybnb.com",
+    "sendMessage": "Stuur ons een Bericht",
+    "form": {
+      "name": "Naam *",
+      "email": "E-mail *",
+      "phone": "Telefoon",
+      "message": "Bericht *",
+      "messagePlaceholder": "Vertel ons over uw verblijf of eventuele vragen...",
+      "sending": "Versturen...",
+      "submit": "Verstuur Bericht"
+    },
+    "findUs": "Vind Ons",
+    "successToast": "Bericht succesvol verzonden! We nemen spoedig contact met u op.",
+    "errorToast": "Verzenden mislukt. Probeer het opnieuw."
+  },
+  "rooms": {
+    "title": "Onze Kamers",
+    "noRooms": "Er zijn momenteel geen kamers beschikbaar.",
+    "pricePerNight": "€{price}/nacht",
+    "upToGuests": "Tot {capacity} gasten"
+  },
+  "roomDetail": {
+    "notFound": "Kamer niet gevonden",
+    "description": "Beschrijving",
+    "amenities": "Voorzieningen"
+  },
+  "booking": {
+    "title": "Boek Deze Kamer",
+    "checkIn": "Inchecken",
+    "checkOut": "Uitchecken",
+    "guests": "Gasten",
+    "guest": "Gast",
+    "guestsPlural": "Gasten",
+    "nights": "nachten",
+    "night": "nacht",
+    "total": "Totaal",
+    "priceNote": "* Definitieve prijs wordt bevestigd bij boeking. Geen verborgen kosten.",
+    "requestBooking": "Boeking Aanvragen",
+    "bookTheseDates": "Deze Data Boeken",
+    "completeBooking": "Voltooi Uw Boeking",
+    "bookingSummary": {
+      "room": "Kamer:",
+      "checkIn": "Inchecken:",
+      "checkOut": "Uitchecken:",
+      "nights": "Nachten:",
+      "estimatedTotal": "Geschat Totaal:"
+    },
+    "form": {
+      "name": "Naam *",
+      "email": "E-mail *",
+      "phone": "Telefoon",
+      "phonePlaceholder": "Telefoonnummer",
+      "namePlaceholder": "Uw Naam *",
+      "emailPlaceholder": "E-mailadres *",
+      "message": "Speciale Verzoeken",
+      "messagePlaceholder": "Heeft u speciale verzoeken of vragen?",
+      "messagePlaceholderAlt": "Heeft u speciale wensen of vragen?",
+      "numberOfGuests": "Aantal Gasten *",
+      "maxCapacity": "(Max {capacity})",
+      "sending": "Versturen...",
+      "submit": "Boekingsaanvraag Versturen",
+      "cancel": "Annuleren"
+    },
+    "bestRate": "💰 Beste Prijs Gegarandeerd Bij Direct Boeken!",
+    "callUs": "Bel (555) 123-4567",
+    "emailUs": "info@cozybnb.com",
+    "noSpecialRequests": "Geen speciale verzoeken",
+    "toBeConfirmed": "Nog te bevestigen",
+    "successToast": "Boekingsaanvraag verzonden! We bevestigen de beschikbaarheid spoedig.",
+    "successToastAlt": "Boekingsaanvraag verzonden! We bevestigen de beschikbaarheid spoedig.",
+    "errorToast": "Verzenden mislukt. Bel ons alstublieft direct.",
+    "errorToastAlt": "Verzenden mislukt. Probeer opnieuw of bel ons.",
+    "overlapError": "Deze periode overlapt met geboekte data. Selecteer alleen beschikbare data.",
+    "overlapReselect": "Geselecteerde data overlappen met geboekte data. Selecteer opnieuw."
+  },
+  "calendar": {
+    "months": ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+    "days": ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"],
+    "blockDates": "Data Blokkeren",
+    "legend": {
+      "booked": "Geboekt",
+      "selected": "Geselecteerd",
+      "available": "Beschikbaar"
+    },
+    "upcomingBookings": "Aankomende Boekingen"
+  },
+  "reviews": {
+    "title": "Wat Onze Gasten Zeggen",
+    "readAll": "Lees alle reviews op Google",
+    "loading": "Reviews laden...",
+    "error": "Reviews laden mislukt"
+  },
+  "gallery": {
+    "clickFullscreen": "Klik voor volledig scherm",
+    "noImages": "Geen afbeeldingen beschikbaar"
+  },
+  "map": {
+    "noApiKey": "Google Maps API-sleutel niet geconfigureerd"
+  },
+  "error": {
+    "somethingWrong": "Er is iets misgegaan",
+    "genericMessage": "Onze excuses, er is een onverwachte fout opgetreden. Probeer opnieuw of ga naar de startpagina.",
+    "tryAgain": "Probeer opnieuw",
+    "goHome": "Naar startpagina",
+    "unableToLoadRooms": "Kan kamers niet laden",
+    "roomsMessage": "Probeer opnieuw of kom later terug."
+  },
+  "admin": {
+    "login": {
+      "title": "Beheerder Login",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "signIn": "Inloggen",
+      "invalidCredentials": "Ongeldige inloggegevens",
+      "error": "Er is een fout opgetreden"
+    },
+    "dashboard": {
+      "title": "Beheerderspaneel",
+      "manageAvailability": "Beschikbaarheid Beheren",
+      "addRoom": "Kamer Toevoegen",
+      "logout": "Uitloggen",
+      "manageRooms": "Kamers Beheren",
+      "noRooms": "Nog geen kamers aangemaakt",
+      "createFirst": "Maak Uw Eerste Kamer Aan",
+      "pricePerNight": "Prijs: €{price}/nacht",
+      "capacity": "Capaciteit: {count} gasten",
+      "fetchError": "Ophalen van kamers mislukt",
+      "confirmDelete": "Weet u zeker dat u deze kamer wilt verwijderen?",
+      "deleteSuccess": "Kamer succesvol verwijderd",
+      "deleteError": "Verwijderen van kamer mislukt"
+    },
+    "roomForm": {
+      "roomName": "Kamernaam",
+      "description": "Beschrijving",
+      "pricePerNight": "Prijs per Nacht (€)",
+      "capacity": "Capaciteit (gasten)",
+      "amenities": "Voorzieningen (komma-gescheiden)",
+      "amenitiesPlaceholder": "WiFi, TV, Airconditioning, Minibar",
+      "roomImages": "Kamer Afbeeldingen",
+      "saving": "Opslaan...",
+      "updateRoom": "Kamer Bijwerken",
+      "createRoom": "Kamer Aanmaken",
+      "cancel": "Annuleren",
+      "updateSuccess": "Kamer bijgewerkt!",
+      "createSuccess": "Kamer aangemaakt!",
+      "genericError": "Er is iets misgegaan",
+      "saveError": "Opslaan van kamer mislukt"
+    },
+    "newRoom": {
+      "title": "Nieuwe Kamer Aanmaken"
+    },
+    "editRoom": {
+      "notFound": "Kamer niet gevonden",
+      "title": "Kamer Bewerken: {name}"
+    },
+    "roomDetail": {
+      "notFound": "Kamer niet gevonden",
+      "capacity": "Capaciteit",
+      "upToGuests": "Tot {count} gasten",
+      "description": "Beschrijving",
+      "amenities": "Voorzieningen",
+      "bookThisRoom": "Boek Deze Kamer"
+    },
+    "availability": {
+      "title": "Beschikbaarheid Beheren",
+      "selectRoom": "Selecteer Kamer",
+      "fetchError": "Ophalen van kamers mislukt"
+    },
+    "imageUpload": {
+      "processing": "Verwerken...",
+      "uploadPhotos": "Foto's Uploaden",
+      "urlPlaceholder": "Of plak een afbeeldings-URL...",
+      "addUrl": "URL Toevoegen",
+      "error": "Fout bij verwerken van afbeeldingen"
+    }
+  }
+}

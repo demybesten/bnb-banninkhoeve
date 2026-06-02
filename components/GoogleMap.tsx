@@ -2,6 +2,7 @@
 'use client'
 
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api'
+import { useT } from '@/lib/i18n-client'
 
 const containerStyle = {
     width: '100%',
@@ -19,12 +20,13 @@ interface MapProps {
 }
 
 export default function MapComponent({ center = defaultCenter, zoom = 15 }: MapProps) {
+    const t = useT()
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
     if (!apiKey) {
         return (
             <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-                <p className="text-gray-500">Google Maps API key not configured</p>
+                <p className="text-gray-500">{t.map.noApiKey}</p>
             </div>
         )
     }

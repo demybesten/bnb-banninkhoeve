@@ -4,28 +4,41 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import { Toaster } from 'react-hot-toast'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
+import { TranslationProvider } from '@/lib/i18n-client'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Cozy B&B - Your Home Away From Home',
-  description: 'Experience comfort and luxury at our charming bed and breakfast',
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await detectLocale()
+  const t = await getTranslations(locale)
+  return {
+    title: t.metadata.title,
+    description: t.metadata.description,
+  }
 }
 
-export default function RootLayout({
-                                     children,
-                                   }: {
+export default async function RootLayout({
+  children,
+}: {
   children: React.ReactNode
 }) {
+  const locale = await detectLocale()
+  const t = await getTranslations(locale)
+
   return (
-      <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-      <Navigation />
-      <main className="min-h-screen">
-        {children}
-      </main>
-      <Footer />
+        <TranslationProvider dictionary={t} initialLocale={locale}>
+          <Toaster position="top-center" />
+          <Navigation />
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
+        </TranslationProvider>
       </body>
-      </html>
+    </html>
   )
 }

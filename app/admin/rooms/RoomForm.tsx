@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import ImageUpload from '@/components/ImageUpload'
+import { useT } from '@/lib/i18n-client'
 
 interface RoomFormProps {
     room?: {
@@ -19,6 +20,7 @@ interface RoomFormProps {
 }
 
 export default function RoomForm({ room }: RoomFormProps) {
+    const t = useT()
     const router = useRouter()
     const [formData, setFormData] = useState({
         name: room?.name || '',
@@ -57,15 +59,14 @@ export default function RoomForm({ room }: RoomFormProps) {
             })
 
             if (res.ok) {
-                toast.success(room?.id ? 'Room updated!' : 'Room created!')
+                toast.success(room?.id ? t.admin.roomForm.updateSuccess : t.admin.roomForm.createSuccess)
                 router.push('/admin/dashboard')
                 router.refresh()
             } else {
-                const error = await res.json()
-                toast.error(error.error || 'Something went wrong')
+                toast.error(t.admin.roomForm.genericError)
             }
         } catch (err) {
-            toast.error('Failed to save room')
+            toast.error(t.admin.roomForm.saveError)
         } finally {
             setSaving(false)
         }
@@ -75,7 +76,7 @@ export default function RoomForm({ room }: RoomFormProps) {
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-6">
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Room Name
+                    {t.admin.roomForm.roomName}
                 </label>
                 <input
                     type="text"
@@ -88,7 +89,7 @@ export default function RoomForm({ room }: RoomFormProps) {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
+                    {t.admin.roomForm.description}
                 </label>
                 <textarea
                     required
@@ -102,7 +103,7 @@ export default function RoomForm({ room }: RoomFormProps) {
             <div className="grid grid-cols-2 gap-6">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Price per Night ($)
+                        {t.admin.roomForm.pricePerNight}
                     </label>
                     <input
                         type="number"
@@ -117,7 +118,7 @@ export default function RoomForm({ room }: RoomFormProps) {
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Capacity (guests)
+                        {t.admin.roomForm.capacity}
                     </label>
                     <input
                         type="number"
@@ -132,21 +133,20 @@ export default function RoomForm({ room }: RoomFormProps) {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Amenities (comma-separated)
+                    {t.admin.roomForm.amenities}
                 </label>
                 <input
                     type="text"
                     value={formData.amenities}
                     onChange={(e) => setFormData({ ...formData, amenities: e.target.value })}
-                    placeholder="WiFi, TV, Air Conditioning, Mini Bar"
+                    placeholder={t.admin.roomForm.amenitiesPlaceholder}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
                 />
             </div>
 
-            {/* New Image Upload Component */}
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Room Images
+                    {t.admin.roomForm.roomImages}
                 </label>
                 <ImageUpload
                     images={images}
@@ -160,14 +160,14 @@ export default function RoomForm({ room }: RoomFormProps) {
                     disabled={saving}
                     className="flex-1 bg-amber-800 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition disabled:opacity-50"
                 >
-                    {saving ? 'Saving...' : (room?.id ? 'Update Room' : 'Create Room')}
+                    {saving ? t.admin.roomForm.saving : (room?.id ? t.admin.roomForm.updateRoom : t.admin.roomForm.createRoom)}
                 </button>
                 <button
                     type="button"
                     onClick={() => router.back()}
                     className="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 transition"
                 >
-                    Cancel
+                    {t.admin.roomForm.cancel}
                 </button>
             </div>
         </form>

@@ -1,18 +1,22 @@
 // app/rooms/page.tsx
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
+import { t } from '@/lib/i18n'
 
 export default async function RoomsPage() {
+    const locale = await detectLocale()
+    const dict = await getTranslations(locale)
     const rooms = await prisma.room.findMany()
 
     return (
         <div className="py-12">
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center mb-12">Our Rooms</h1>
+                <h1 className="text-4xl font-bold text-center mb-12">{dict.rooms.title}</h1>
 
                 {rooms.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="text-gray-600 text-xl">No rooms available at the moment.</p>
+                        <p className="text-gray-600 text-xl">{dict.rooms.noRooms}</p>
                     </div>
                 ) : (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -36,9 +40,9 @@ export default async function RoomsPage() {
                                     <p className="text-gray-600 mb-4 line-clamp-2">{room.description}</p>
                                     <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-amber-800">
-                      ${room.price}<span className="text-base font-normal">/night</span>
+                      {t(dict.rooms.pricePerNight, { price: room.price })}<span className="text-base font-normal">/night</span>
                     </span>
-                                        <span className="text-gray-500">Up to {room.capacity} guests</span>
+                                        <span className="text-gray-500">{t(dict.rooms.upToGuests, { capacity: room.capacity })}</span>
                                     </div>
                                 </div>
                             </Link>

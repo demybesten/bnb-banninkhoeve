@@ -1,0 +1,275 @@
+{
+  "metadata": {
+    "title": "Cozy B&B - Your Home Away From Home",
+    "description": "Experience comfort and luxury at our charming bed and breakfast"
+  },
+  "common": {
+    "siteName": "Cozy B&B",
+    "loading": "Loading..."
+  },
+  "nav": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "footer": {
+    "tagline": "Your home away from home in the heart of the city.",
+    "contact": "Contact",
+    "address": "123 Main Street",
+    "cityState": "City, State 12345",
+    "phone": "Phone: (555) 123-4567",
+    "email": "Email: info@cozybnb.com",
+    "quickLinks": "Quick Links",
+    "ourRooms": "Our Rooms",
+    "aboutUs": "About Us",
+    "contactLink": "Contact",
+    "copyright": "© 2024 Cozy B&B. All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "title": "Welcome to Cozy B&B",
+      "subtitle": "Experience comfort, luxury, and warm hospitality",
+      "viewRooms": "View Rooms",
+      "contactUs": "Contact Us"
+    },
+    "features": {
+      "title": "Why Choose Us",
+      "comfortable": {
+        "title": "Comfortable Rooms",
+        "description": "Each room is carefully designed for your ultimate comfort and relaxation."
+      },
+      "breakfast": {
+        "title": "Homemade Breakfast",
+        "description": "Start your day with a delicious, freshly prepared breakfast."
+      },
+      "location": {
+        "title": "Perfect Location",
+        "description": "Centrally located with easy access to all major attractions."
+      }
+    },
+    "featuredRooms": {
+      "title": "Our Rooms",
+      "pricePerNight": "${price}/night",
+      "viewDetails": "View Details",
+      "viewAll": "View All Rooms"
+    },
+    "bookDirect": {
+      "title": "Why Book Direct?",
+      "bestPrice": {
+        "title": "Best Price",
+        "description": "No booking fees or commission. Save up to 15% compared to booking platforms."
+      },
+      "perks": {
+        "title": "Special Perks",
+        "description": "Direct bookers get complimentary late checkout and welcome drinks."
+      },
+      "service": {
+        "title": "Personal Service",
+        "description": "Talk directly with us. We can customize your stay and accommodate special requests."
+      }
+    }
+  },
+  "about": {
+    "title": "About Cozy B&B",
+    "ourStory": "Our Story",
+    "storyP1": "Welcome to Cozy B&B, where comfort meets elegance. Our charming bed and breakfast has been welcoming guests since 2010, offering a warm and inviting atmosphere that makes you feel right at home.",
+    "storyP2": "Located in the heart of the city, we provide the perfect base for exploring local attractions while enjoying peaceful and comfortable accommodations.",
+    "storyP3": "Each morning, we serve a delicious homemade breakfast made with fresh, locally-sourced ingredients. Our rooms are individually decorated to provide a unique and memorable stay for every guest.",
+    "photoPlaceholder": "Photo of our B&B",
+    "testimonials": {
+      "title": "What Our Guests Say",
+      "testimonial1": "Amazing experience! The room was beautiful and the breakfast was delicious. Will definitely come back.",
+      "author1": "Sarah M.",
+      "testimonial2": "The perfect place for a weekend getaway. The hosts were incredibly welcoming and helpful with local recommendations.",
+      "author2": "James & Emily T.",
+      "testimonial3": "Beautiful property with attention to every detail. The garden is stunning and the location couldn't be better.",
+      "author3": "Michael R."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "getInTouch": "Get in Touch",
+    "address": "Address",
+    "addressLine1": "123 Main Street",
+    "addressLine2": "City, State 12345",
+    "phone": "Phone",
+    "phoneNumber": "(555) 123-4567",
+    "email": "Email",
+    "emailAddress": "info@cozybnb.com",
+    "sendMessage": "Send us a Message",
+    "form": {
+      "name": "Name *",
+      "email": "Email *",
+      "phone": "Phone",
+      "message": "Message *",
+      "messagePlaceholder": "Tell us about your stay or any questions...",
+      "sending": "Sending...",
+      "submit": "Send Message"
+    },
+    "findUs": "Find Us",
+    "successToast": "Message sent successfully! We'll get back to you soon.",
+    "errorToast": "Failed to send message. Please try again."
+  },
+  "rooms": {
+    "title": "Our Rooms",
+    "noRooms": "No rooms available at the moment.",
+    "pricePerNight": "${price}/night",
+    "upToGuests": "Up to {capacity} guests"
+  },
+  "roomDetail": {
+    "notFound": "Room not found",
+    "description": "Description",
+    "amenities": "Amenities"
+  },
+  "booking": {
+    "title": "Book This Room",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "guest": "Guest",
+    "guestsPlural": "Guests",
+    "nights": "nights",
+    "night": "night",
+    "total": "Total",
+    "priceNote": "* Final price confirmed upon booking. No hidden fees.",
+    "requestBooking": "Request Booking",
+    "bookTheseDates": "Book These Dates",
+    "completeBooking": "Complete Your Booking",
+    "bookingSummary": {
+      "room": "Room:",
+      "checkIn": "Check-in:",
+      "checkOut": "Check-out:",
+      "nights": "Nights:",
+      "estimatedTotal": "Estimated Total:"
+    },
+    "form": {
+      "name": "Name *",
+      "email": "Email *",
+      "phone": "Phone",
+      "phonePlaceholder": "Phone Number",
+      "namePlaceholder": "Your Name *",
+      "emailPlaceholder": "Email Address *",
+      "message": "Special Requests",
+      "messagePlaceholder": "Any special requests or questions?",
+      "messagePlaceholderAlt": "Any special requirements or questions?",
+      "numberOfGuests": "Number of Guests *",
+      "maxCapacity": "(Max {capacity})",
+      "sending": "Sending...",
+      "submit": "Send Booking Request",
+      "cancel": "Cancel"
+    },
+    "bestRate": "💰 Best Rate Guaranteed When You Book Direct!",
+    "callUs": "Call (555) 123-4567",
+    "emailUs": "info@cozybnb.com",
+    "noSpecialRequests": "No special requests",
+    "toBeConfirmed": "To be confirmed",
+    "successToast": "Booking inquiry sent! We'll confirm availability shortly.",
+    "successToastAlt": "Booking request sent! We'll confirm availability shortly.",
+    "errorToast": "Failed to send. Please call us directly.",
+    "errorToastAlt": "Failed to send. Please try again or call us.",
+    "overlapError": "This date range overlaps with booked dates. Please select available dates only.",
+    "overlapReselect": "Selected dates overlap with booked dates. Please reselect."
+  },
+  "calendar": {
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "blockDates": "Block Dates",
+    "legend": {
+      "booked": "Booked",
+      "selected": "Selected",
+      "available": "Available"
+    },
+    "upcomingBookings": "Upcoming Bookings"
+  },
+  "reviews": {
+    "title": "What Our Guests Say",
+    "readAll": "Read all reviews on Google",
+    "loading": "Loading reviews...",
+    "error": "Failed to load reviews"
+  },
+  "gallery": {
+    "clickFullscreen": "Click to view fullscreen",
+    "noImages": "No images available"
+  },
+  "map": {
+    "noApiKey": "Google Maps API key not configured"
+  },
+  "error": {
+    "somethingWrong": "Something went wrong",
+    "genericMessage": "We're sorry, an unexpected error occurred. Please try again or return home.",
+    "tryAgain": "Try again",
+    "goHome": "Go home",
+    "unableToLoadRooms": "Unable to load rooms",
+    "roomsMessage": "Please try again or check back later."
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "username": "Username",
+      "password": "Password",
+      "signIn": "Sign in",
+      "invalidCredentials": "Invalid credentials",
+      "error": "An error occurred"
+    },
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "manageAvailability": "Manage Availability",
+      "addRoom": "Add Room",
+      "logout": "Logout",
+      "manageRooms": "Manage Rooms",
+      "noRooms": "No rooms created yet",
+      "createFirst": "Create Your First Room",
+      "pricePerNight": "Price: ${price}/night",
+      "capacity": "Capacity: {count} guests",
+      "fetchError": "Failed to fetch rooms",
+      "confirmDelete": "Are you sure you want to delete this room?",
+      "deleteSuccess": "Room deleted successfully",
+      "deleteError": "Failed to delete room"
+    },
+    "roomForm": {
+      "roomName": "Room Name",
+      "description": "Description",
+      "pricePerNight": "Price per Night ($)",
+      "capacity": "Capacity (guests)",
+      "amenities": "Amenities (comma-separated)",
+      "amenitiesPlaceholder": "WiFi, TV, Air Conditioning, Mini Bar",
+      "roomImages": "Room Images",
+      "saving": "Saving...",
+      "updateRoom": "Update Room",
+      "createRoom": "Create Room",
+      "cancel": "Cancel",
+      "updateSuccess": "Room updated!",
+      "createSuccess": "Room created!",
+      "genericError": "Something went wrong",
+      "saveError": "Failed to save room"
+    },
+    "newRoom": {
+      "title": "Create New Room"
+    },
+    "editRoom": {
+      "notFound": "Room not found",
+      "title": "Edit Room: {name}"
+    },
+    "roomDetail": {
+      "notFound": "Room not found",
+      "capacity": "Capacity",
+      "upToGuests": "Up to {count} guests",
+      "description": "Description",
+      "amenities": "Amenities",
+      "bookThisRoom": "Book This Room"
+    },
+    "availability": {
+      "title": "Manage Availability",
+      "selectRoom": "Select Room",
+      "fetchError": "Failed to fetch rooms"
+    },
+    "imageUpload": {
+      "processing": "Processing...",
+      "uploadPhotos": "Upload Photos",
+      "urlPlaceholder": "Or paste an image URL...",
+      "addUrl": "Add URL",
+      "error": "Error processing images"
+    }
+  }
+}

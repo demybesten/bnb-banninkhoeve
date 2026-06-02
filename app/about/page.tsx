@@ -1,61 +1,52 @@
 // app/about/page.tsx
-export default function AboutPage() {
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
+
+export default async function AboutPage() {
+    const locale = await detectLocale()
+    const dict = await getTranslations(locale)
+
     return (
         <div className="py-12">
             <div className="max-w-7xl mx-auto px-4">
-                <h1 className="text-4xl font-bold text-center mb-12">About Cozy B&B</h1>
+                <h1 className="text-4xl font-bold text-center mb-12">{dict.about.title}</h1>
 
                 <div className="grid md:grid-cols-2 gap-12 mb-16">
                     <div>
-                        <h2 className="text-3xl font-semibold mb-6">Our Story</h2>
+                        <h2 className="text-3xl font-semibold mb-6">{dict.about.ourStory}</h2>
                         <div className="space-y-4 text-gray-700 leading-relaxed">
-                            <p>
-                                Welcome to Cozy B&B, where comfort meets elegance. Our charming bed and breakfast
-                                has been welcoming guests since 2010, offering a warm and inviting atmosphere
-                                that makes you feel right at home.
-                            </p>
-                            <p>
-                                Located in the heart of the city, we provide the perfect base for exploring
-                                local attractions while enjoying peaceful and comfortable accommodations.
-                            </p>
-                            <p>
-                                Each morning, we serve a delicious homemade breakfast made with fresh,
-                                locally-sourced ingredients. Our rooms are individually decorated to provide
-                                a unique and memorable stay for every guest.
-                            </p>
+                            <p>{dict.about.storyP1}</p>
+                            <p>{dict.about.storyP2}</p>
+                            <p>{dict.about.storyP3}</p>
                         </div>
                     </div>
                     <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-                        <p className="text-gray-500 text-xl">Photo of our B&B</p>
+                        <p className="text-gray-500 text-xl">{dict.about.photoPlaceholder}</p>
                     </div>
                 </div>
 
                 <div className="mb-16">
-                    <h2 className="text-3xl font-semibold text-center mb-12">What Our Guests Say</h2>
+                    <h2 className="text-3xl font-semibold text-center mb-12">{dict.about.testimonials.title}</h2>
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <div className="text-amber-800 text-4xl mb-4">"</div>
+                            <div className="text-amber-800 text-4xl mb-4">{'"'}</div>
                             <p className="text-gray-700 mb-4">
-                                Amazing experience! The room was beautiful and the breakfast was delicious.
-                                Will definitely come back.
+                                {dict.about.testimonials.testimonial1}
                             </p>
-                            <div className="font-semibold">- Sarah M.</div>
+                            <div className="font-semibold">- {dict.about.testimonials.author1}</div>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <div className="text-amber-800 text-4xl mb-4">"</div>
+                            <div className="text-amber-800 text-4xl mb-4">{'"'}</div>
                             <p className="text-gray-700 mb-4">
-                                The perfect place for a weekend getaway. The hosts were incredibly welcoming
-                                and helpful with local recommendations.
+                                {dict.about.testimonials.testimonial2}
                             </p>
-                            <div className="font-semibold">- James & Emily T.</div>
+                            <div className="font-semibold">- {dict.about.testimonials.author2}</div>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <div className="text-amber-800 text-4xl mb-4">"</div>
+                            <div className="text-amber-800 text-4xl mb-4">{'"'}</div>
                             <p className="text-gray-700 mb-4">
-                                Beautiful property with attention to every detail. The garden is stunning
-                                and the location couldn't be better.
+                                {dict.about.testimonials.testimonial3}
                             </p>
-                            <div className="font-semibold">- Michael R.</div>
+                            <div className="font-semibold">- {dict.about.testimonials.author3}</div>
                         </div>
                     </div>
                 </div>

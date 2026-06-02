@@ -3,8 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import GoogleReviews from '@/components/GoogleReviews'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
+import { t } from '@/lib/i18n'
 
 export default async function Home() {
+  const locale = await detectLocale()
+  const dict = await getTranslations(locale)
   const rooms = await prisma.room.findMany({
     take: 3,
     orderBy: { createdAt: 'desc' }
@@ -18,23 +22,23 @@ export default async function Home() {
           <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
             <div className="text-white">
               <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                Welcome to Cozy B&B
+                {dict.home.hero.title}
               </h1>
               <p className="text-xl md:text-2xl mb-8">
-                Experience comfort, luxury, and warm hospitality
+                {dict.home.hero.subtitle}
               </p>
               <div className="flex gap-4">
                 <Link
                     href="/rooms"
                     className="bg-white text-amber-900 px-8 py-3 rounded-lg font-semibold hover:bg-amber-100 transition"
                 >
-                  View Rooms
+                  {dict.home.hero.viewRooms}
                 </Link>
                 <Link
                     href="/contact"
                     className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-amber-900 transition"
                 >
-                  Contact Us
+                  {dict.home.hero.contactUs}
                 </Link>
               </div>
             </div>
@@ -44,27 +48,27 @@ export default async function Home() {
         {/* Features Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-4xl font-bold text-center mb-12">Why Choose Us</h2>
+            <h2 className="text-4xl font-bold text-center mb-12">{dict.home.features.title}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center p-8 bg-white rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">🏠</div>
-                <h3 className="text-2xl font-semibold mb-4">Comfortable Rooms</h3>
+                <h3 className="text-2xl font-semibold mb-4">{dict.home.features.comfortable.title}</h3>
                 <p className="text-gray-600">
-                  Each room is carefully designed for your ultimate comfort and relaxation.
+                  {dict.home.features.comfortable.description}
                 </p>
               </div>
               <div className="text-center p-8 bg-white rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">🍳</div>
-                <h3 className="text-2xl font-semibold mb-4">Homemade Breakfast</h3>
+                <h3 className="text-2xl font-semibold mb-4">{dict.home.features.breakfast.title}</h3>
                 <p className="text-gray-600">
-                  Start your day with a delicious, freshly prepared breakfast.
+                  {dict.home.features.breakfast.description}
                 </p>
               </div>
               <div className="text-center p-8 bg-white rounded-lg shadow-lg">
                 <div className="text-5xl mb-4">📍</div>
-                <h3 className="text-2xl font-semibold mb-4">Perfect Location</h3>
+                <h3 className="text-2xl font-semibold mb-4">{dict.home.features.location.title}</h3>
                 <p className="text-gray-600">
-                  Centrally located with easy access to all major attractions.
+                  {dict.home.features.location.description}
                 </p>
               </div>
             </div>
@@ -76,7 +80,7 @@ export default async function Home() {
         {rooms.length > 0 && (
             <section className="py-20">
               <div className="max-w-7xl mx-auto px-4">
-                <h2 className="text-4xl font-bold text-center mb-12">Our Rooms</h2>
+                <h2 className="text-4xl font-bold text-center mb-12">{dict.home.featuredRooms.title}</h2>
                 <div className="grid md:grid-cols-3 gap-8">
                   {rooms.map((room) => (
                       <div key={room.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -94,13 +98,13 @@ export default async function Home() {
                           <p className="text-gray-600 mb-4 line-clamp-3">{room.description}</p>
                           <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-amber-800">
-                        ${room.price}/night
+                        {t(dict.home.featuredRooms.pricePerNight, { price: room.price })}
                       </span>
                             <Link
                                 href={`/rooms/${room.id}`}
                                 className="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition"
                             >
-                              View Details
+                              {dict.home.featuredRooms.viewDetails}
                             </Link>
                           </div>
                         </div>
@@ -112,7 +116,7 @@ export default async function Home() {
                       href="/rooms"
                       className="bg-amber-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-700 transition inline-block"
                   >
-                    View All Rooms
+                    {dict.home.featuredRooms.viewAll}
                   </Link>
                 </div>
               </div>
@@ -121,27 +125,27 @@ export default async function Home() {
         {/* Why Book Direct Section */}
         <section className="py-16 bg-green-50">
           <div className="max-w-7xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">Why Book Direct?</h2>
+            <h2 className="text-3xl font-bold mb-4">{dict.home.bookDirect.title}</h2>
             <div className="grid md:grid-cols-3 gap-8 mt-12">
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="text-4xl mb-4">💰</div>
-                <h3 className="text-xl font-semibold mb-2">Best Price</h3>
+                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.bestPrice.title}</h3>
                 <p className="text-gray-600">
-                  No booking fees or commission. Save up to 15% compared to booking platforms.
+                  {dict.home.bookDirect.bestPrice.description}
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="text-4xl mb-4">🎁</div>
-                <h3 className="text-xl font-semibold mb-2">Special Perks</h3>
+                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.perks.title}</h3>
                 <p className="text-gray-600">
-                  Direct bookers get complimentary late checkout and welcome drinks.
+                  {dict.home.bookDirect.perks.description}
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow">
                 <div className="text-4xl mb-4">📞</div>
-                <h3 className="text-xl font-semibold mb-2">Personal Service</h3>
+                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.service.title}</h3>
                 <p className="text-gray-600">
-                  Talk directly with us. We can customize your stay and accommodate special requests.
+                  {dict.home.bookDirect.service.description}
                 </p>
               </div>
             </div>

@@ -1,9 +1,12 @@
-// app/rooms/[id]/page.tsx
+// app/admin/rooms/[id]/page.tsx
 import { prisma } from '@/lib/prisma'
 import RoomGallery from '@/components/RoomGallery'
+import { getTranslations } from '@/lib/i18n-server'
+import { t as interpolate } from '@/lib/i18n'
 
 export default async function RoomDetailPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = await params;  // Await params here
+    const { id } = await params;
+    const t = await getTranslations('nl')
 
     const room = await prisma.room.findUnique({
         where: { id: parseInt(id) }
@@ -12,7 +15,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
     if (!room) {
         return (
             <div className="py-20 text-center">
-                <h1 className="text-4xl font-bold">Room not found</h1>
+                <h1 className="text-4xl font-bold">{t.admin.roomDetail.notFound}</h1>
             </div>
         )
     }
@@ -33,20 +36,20 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                     <div>
                         <h1 className="text-4xl font-bold mb-4">{room.name}</h1>
                         <div className="text-3xl font-bold text-amber-800 mb-6">
-                            ${room.price}<span className="text-lg font-normal text-gray-600">/night</span>
+                            €{room.price}<span className="text-lg font-normal text-gray-600">/nacht</span>
                         </div>
 
                         <div className="bg-gray-50 rounded-lg p-6 mb-6">
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <span className="text-gray-600">Capacity</span>
-                                    <p className="font-semibold">Up to {room.capacity} guests</p>
+                                    <span className="text-gray-600">{t.admin.roomDetail.capacity}</span>
+                                    <p className="font-semibold">{interpolate(t.admin.roomDetail.upToGuests, { count: room.capacity })}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div className="mb-6">
-                            <h2 className="text-2xl font-semibold mb-3">Description</h2>
+                            <h2 className="text-2xl font-semibold mb-3">{t.admin.roomDetail.description}</h2>
                             <p className="text-gray-700 leading-relaxed whitespace-pre-line">
                                 {room.description}
                             </p>
@@ -54,7 +57,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
 
                         {amenities.length > 0 && amenities[0] !== '' && (
                             <div className="mb-6">
-                                <h2 className="text-2xl font-semibold mb-3">Amenities</h2>
+                                <h2 className="text-2xl font-semibold mb-3">{t.admin.roomDetail.amenities}</h2>
                                 <div className="flex flex-wrap gap-2">
                                     {amenities.map((amenity, index) => (
                                         <span
@@ -69,7 +72,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                         )}
 
                         <button className="w-full bg-amber-800 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition">
-                            Book This Room
+                            {t.admin.roomDetail.bookThisRoom}
                         </button>
                     </div>
                 </div>

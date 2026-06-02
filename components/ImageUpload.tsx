@@ -3,6 +3,7 @@
 
 import { useState } from 'react'
 import { HiX, HiUpload } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
 
 interface ImageUploadProps {
     images: string[]
@@ -10,6 +11,7 @@ interface ImageUploadProps {
 }
 
 export default function ImageUpload({ images, onChange }: ImageUploadProps) {
+    const t = useT()
     const [uploading, setUploading] = useState(false)
     const [urlInput, setUrlInput] = useState('')
 
@@ -32,7 +34,7 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
             const base64Images = await Promise.all(filePromises)
             onChange([...images, ...base64Images])
         } catch (err) {
-            alert('Error processing images')
+            alert(t.admin.imageUpload.error)
         } finally {
             setUploading(false)
             e.target.value = ''
@@ -56,7 +58,7 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
                 <label className="flex-1">
                     <div className="flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-amber-500 transition">
                         <HiUpload className="text-xl" />
-                        <span>{uploading ? 'Processing...' : 'Upload Photos'}</span>
+                        <span>{uploading ? t.admin.imageUpload.processing : t.admin.imageUpload.uploadPhotos}</span>
                     </div>
                     <input
                         type="file"
@@ -74,7 +76,7 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
                     type="url"
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
-                    placeholder="Or paste an image URL..."
+                    placeholder={t.admin.imageUpload.urlPlaceholder}
                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
                     onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddUrl())}
                 />
@@ -83,7 +85,7 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
                     onClick={handleAddUrl}
                     className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
                 >
-                    Add URL
+                    {t.admin.imageUpload.addUrl}
                 </button>
             </div>
 
