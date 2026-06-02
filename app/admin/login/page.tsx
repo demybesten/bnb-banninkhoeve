@@ -3,8 +3,10 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useT } from '@/lib/i18n-client'
 
 export default function AdminLogin() {
+    const t = useT()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -24,10 +26,10 @@ export default function AdminLogin() {
             if (res.ok) {
                 router.push('/admin/dashboard')
             } else {
-                setError('Invalid credentials')
+                setError(t.admin.login.invalidCredentials)
             }
         } catch (err) {
-            setError('An error occurred')
+            setError(t.admin.login.error)
         }
     }
 
@@ -36,7 +38,7 @@ export default function AdminLogin() {
             <div className="max-w-md w-full space-y-8">
                 <div>
                     <h2 className="text-center text-3xl font-bold text-gray-900">
-                        Admin Login
+                        {t.admin.login.title}
                     </h2>
                 </div>
                 <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -48,7 +50,7 @@ export default function AdminLogin() {
                     <div className="rounded-md shadow-sm space-y-4">
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                                Username
+                                {t.admin.login.username}
                             </label>
                             <input
                                 id="username"
@@ -61,7 +63,7 @@ export default function AdminLogin() {
                         </div>
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                Password
+                                {t.admin.login.password}
                             </label>
                             <input
                                 id="password"
@@ -78,7 +80,7 @@ export default function AdminLogin() {
                         type="submit"
                         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-800 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
                     >
-                        Sign in
+                        {t.admin.login.signIn}
                     </button>
                 </form>
             </div>

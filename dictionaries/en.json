@@ -202,5 +202,74 @@
     "goHome": "Go home",
     "unableToLoadRooms": "Unable to load rooms",
     "roomsMessage": "Please try again or check back later."
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "username": "Username",
+      "password": "Password",
+      "signIn": "Sign in",
+      "invalidCredentials": "Invalid credentials",
+      "error": "An error occurred"
+    },
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "manageAvailability": "Manage Availability",
+      "addRoom": "Add Room",
+      "logout": "Logout",
+      "manageRooms": "Manage Rooms",
+      "noRooms": "No rooms created yet",
+      "createFirst": "Create Your First Room",
+      "pricePerNight": "Price: ${price}/night",
+      "capacity": "Capacity: {count} guests",
+      "fetchError": "Failed to fetch rooms",
+      "confirmDelete": "Are you sure you want to delete this room?",
+      "deleteSuccess": "Room deleted successfully",
+      "deleteError": "Failed to delete room"
+    },
+    "roomForm": {
+      "roomName": "Room Name",
+      "description": "Description",
+      "pricePerNight": "Price per Night ($)",
+      "capacity": "Capacity (guests)",
+      "amenities": "Amenities (comma-separated)",
+      "amenitiesPlaceholder": "WiFi, TV, Air Conditioning, Mini Bar",
+      "roomImages": "Room Images",
+      "saving": "Saving...",
+      "updateRoom": "Update Room",
+      "createRoom": "Create Room",
+      "cancel": "Cancel",
+      "updateSuccess": "Room updated!",
+      "createSuccess": "Room created!",
+      "genericError": "Something went wrong",
+      "saveError": "Failed to save room"
+    },
+    "newRoom": {
+      "title": "Create New Room"
+    },
+    "editRoom": {
+      "notFound": "Room not found",
+      "title": "Edit Room: {name}"
+    },
+    "roomDetail": {
+      "notFound": "Room not found",
+      "capacity": "Capacity",
+      "upToGuests": "Up to {count} guests",
+      "description": "Description",
+      "amenities": "Amenities",
+      "bookThisRoom": "Book This Room"
+    },
+    "availability": {
+      "title": "Manage Availability",
+      "selectRoom": "Select Room",
+      "fetchError": "Failed to fetch rooms"
+    },
+    "imageUpload": {
+      "processing": "Processing...",
+      "uploadPhotos": "Upload Photos",
+      "urlPlaceholder": "Or paste an image URL...",
+      "addUrl": "Add URL",
+      "error": "Error processing images"
+    }
   }
 }

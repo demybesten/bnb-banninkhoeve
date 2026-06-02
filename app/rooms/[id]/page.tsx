@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import RoomGallery from '@/components/RoomGallery'
 import BookingWidget from '@/components/BookingWidget'
 import AvailabilityCalendar from '@/components/AvailabilityCalendar'
-import { getTranslations, detectLocale } from '@/lib/i18n'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
 
 export default async function RoomDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import AvailabilityCalendar from '@/components/AvailabilityCalendar'
 import { toast } from 'react-hot-toast'
+import { useT } from '@/lib/i18n-client'
 
 interface Room {
     id: number
@@ -11,6 +12,7 @@ interface Room {
 }
 
 export default function AvailabilityManagement() {
+    const t = useT()
     const [rooms, setRooms] = useState<Room[]>([])
     const [selectedRoom, setSelectedRoom] = useState<number | null>(null)
 
@@ -25,7 +27,7 @@ export default function AvailabilityManagement() {
             setRooms(data)
             if (data.length > 0) setSelectedRoom(data[0].id)
         } catch (err) {
-            toast.error('Failed to fetch rooms')
+            toast.error(t.admin.availability.fetchError)
         }
     }
 
@@ -33,7 +35,7 @@ export default function AvailabilityManagement() {
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-4">
-                    <h1 className="text-2xl font-bold text-amber-800">Manage Availability</h1>
+                    <h1 className="text-2xl font-bold text-amber-800">{t.admin.availability.title}</h1>
                 </div>
             </nav>
 
@@ -41,7 +43,7 @@ export default function AvailabilityManagement() {
                 {/* Room Selector */}
                 <div className="mb-8">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Select Room
+                        {t.admin.availability.selectRoom}
                     </label>
                     <div className="flex gap-4">
                         {rooms.map(room => (

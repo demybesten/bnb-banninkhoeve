@@ -5,7 +5,7 @@ import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import { Toaster } from 'react-hot-toast'
-import { getTranslations, detectLocale } from '@/lib/i18n'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
 import { TranslationProvider } from '@/lib/i18n-client'
 
 const inter = Inter({ subsets: ['latin'] })

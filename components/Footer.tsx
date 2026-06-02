@@ -1,5 +1,5 @@
 // components/Footer.tsx
-import { getTranslations, detectLocale } from '@/lib/i18n'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
 
 export default async function Footer() {
     const locale = await detectLocale()

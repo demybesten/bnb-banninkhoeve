@@ -1,7 +1,8 @@
 // app/rooms/page.tsx
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
-import { getTranslations, detectLocale, t } from '@/lib/i18n'
+import { getTranslations, detectLocale } from '@/lib/i18n-server'
+import { t } from '@/lib/i18n'
 
 export default async function RoomsPage() {
     const locale = await detectLocale()

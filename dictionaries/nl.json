@@ -202,5 +202,74 @@
     "goHome": "Naar startpagina",
     "unableToLoadRooms": "Kan kamers niet laden",
     "roomsMessage": "Probeer opnieuw of kom later terug."
+  },
+  "admin": {
+    "login": {
+      "title": "Beheerder Login",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "signIn": "Inloggen",
+      "invalidCredentials": "Ongeldige inloggegevens",
+      "error": "Er is een fout opgetreden"
+    },
+    "dashboard": {
+      "title": "Beheerderspaneel",
+      "manageAvailability": "Beschikbaarheid Beheren",
+      "addRoom": "Kamer Toevoegen",
+      "logout": "Uitloggen",
+      "manageRooms": "Kamers Beheren",
+      "noRooms": "Nog geen kamers aangemaakt",
+      "createFirst": "Maak Uw Eerste Kamer Aan",
+      "pricePerNight": "Prijs: €{price}/nacht",
+      "capacity": "Capaciteit: {count} gasten",
+      "fetchError": "Ophalen van kamers mislukt",
+      "confirmDelete": "Weet u zeker dat u deze kamer wilt verwijderen?",
+      "deleteSuccess": "Kamer succesvol verwijderd",
+      "deleteError": "Verwijderen van kamer mislukt"
+    },
+    "roomForm": {
+      "roomName": "Kamernaam",
+      "description": "Beschrijving",
+      "pricePerNight": "Prijs per Nacht (€)",
+      "capacity": "Capaciteit (gasten)",
+      "amenities": "Voorzieningen (komma-gescheiden)",
+      "amenitiesPlaceholder": "WiFi, TV, Airconditioning, Minibar",
+      "roomImages": "Kamer Afbeeldingen",
+      "saving": "Opslaan...",
+      "updateRoom": "Kamer Bijwerken",
+      "createRoom": "Kamer Aanmaken",
+      "cancel": "Annuleren",
+      "updateSuccess": "Kamer bijgewerkt!",
+      "createSuccess": "Kamer aangemaakt!",
+      "genericError": "Er is iets misgegaan",
+      "saveError": "Opslaan van kamer mislukt"
+    },
+    "newRoom": {
+      "title": "Nieuwe Kamer Aanmaken"
+    },
+    "editRoom": {
+      "notFound": "Kamer niet gevonden",
+      "title": "Kamer Bewerken: {name}"
+    },
+    "roomDetail": {
+      "notFound": "Kamer niet gevonden",
+      "capacity": "Capaciteit",
+      "upToGuests": "Tot {count} gasten",
+      "description": "Beschrijving",
+      "amenities": "Voorzieningen",
+      "bookThisRoom": "Boek Deze Kamer"
+    },
+    "availability": {
+      "title": "Beschikbaarheid Beheren",
+      "selectRoom": "Selecteer Kamer",
+      "fetchError": "Ophalen van kamers mislukt"
+    },
+    "imageUpload": {
+      "processing": "Verwerken...",
+      "uploadPhotos": "Foto's Uploaden",
+      "urlPlaceholder": "Of plak een afbeeldings-URL...",
+      "addUrl": "URL Toevoegen",
+      "error": "Fout bij verwerken van afbeeldingen"
+    }
   }
 }

@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
-import {HiPencil, HiTrash, HiPlus, HiCalendar} from 'react-icons/hi'
+import { HiPencil, HiTrash, HiPlus, HiCalendar } from 'react-icons/hi'
+import { useT } from '@/lib/i18n-client'
+import { t as interpolate } from '@/lib/i18n'
 
 interface Room {
     id: number
@@ -18,6 +20,7 @@ interface Room {
 }
 
 export default function AdminDashboard() {
+    const t = useT()
     const [rooms, setRooms] = useState<Room[]>([])
     const [loading, setLoading] = useState(true)
     const router = useRouter()
@@ -32,14 +35,14 @@ export default function AdminDashboard() {
             const data = await res.json()
             setRooms(data)
         } catch (err) {
-            toast.error('Failed to fetch rooms')
+            toast.error(t.admin.dashboard.fetchError)
         } finally {
             setLoading(false)
         }
     }
 
     const handleDelete = async (id: number) => {
-        if (!confirm('Are you sure you want to delete this room?')) return
+        if (!confirm(t.admin.dashboard.confirmDelete)) return
 
         try {
             const res = await fetch(`/api/rooms/${id}`, {
@@ -47,14 +50,13 @@ export default function AdminDashboard() {
             })
 
             if (res.ok) {
-                toast.success('Room deleted successfully')
+                toast.success(t.admin.dashboard.deleteSuccess)
                 fetchRooms()
             } else {
-                const error = await res.json()
-                toast.error(error.error || 'Failed to delete room')
+                toast.error(t.admin.dashboard.deleteError)
             }
         } catch (err) {
-            toast.error('Failed to delete room')
+            toast.error(t.admin.dashboard.deleteError)
         }
     }
 
@@ -66,7 +68,7 @@ export default function AdminDashboard() {
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
-                <div className="text-xl">Loading...</div>
+                <div className="text-xl">{t.common.loading}</div>
             </div>
         )
     }
@@ -75,43 +77,43 @@ export default function AdminDashboard() {
         <div className="min-h-screen bg-gray-100">
             <nav className="bg-white shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-amber-800">Admin Dashboard</h1>
+                    <h1 className="text-2xl font-bold text-amber-800">{t.admin.dashboard.title}</h1>
                     <div className="flex gap-4 items-center">
                         <Link
                             href="/admin/availability"
                             className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2"
                         >
                             <HiCalendar />
-                            Manage Availability
+                            {t.admin.dashboard.manageAvailability}
                         </Link>
                         <Link
                             href="/admin/rooms/new"
                             className="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition flex items-center gap-2"
                         >
                             <HiPlus />
-                            Add Room
+                            {t.admin.dashboard.addRoom}
                         </Link>
                         <button
                             onClick={handleLogout}
                             className="text-gray-600 hover:text-gray-800"
                         >
-                            Logout
+                            {t.admin.dashboard.logout}
                         </button>
                     </div>
                 </div>
             </nav>
 
             <div className="max-w-7xl mx-auto px-4 py-8">
-                <h2 className="text-3xl font-bold mb-8">Manage Rooms</h2>
+                <h2 className="text-3xl font-bold mb-8">{t.admin.dashboard.manageRooms}</h2>
 
                 {rooms.length === 0 ? (
                     <div className="text-center py-20 bg-white rounded-lg">
-                        <p className="text-gray-600 text-xl mb-4">No rooms created yet</p>
+                        <p className="text-gray-600 text-xl mb-4">{t.admin.dashboard.noRooms}</p>
                         <Link
                             href="/admin/rooms/new"
                             className="bg-amber-800 text-white px-6 py-3 rounded-lg hover:bg-amber-700 transition inline-block"
                         >
-                            Create Your First Room
+                            {t.admin.dashboard.createFirst}
                         </Link>
                     </div>
                 ) : (
@@ -134,8 +136,8 @@ export default function AdminDashboard() {
                                             <h3 className="text-2xl font-semibold mb-2">{room.name}</h3>
                                             <p className="text-gray-600 mb-2 line-clamp-2">{room.description}</p>
                                             <div className="flex gap-4 text-sm text-gray-500">
-                                                <span>Price: ${room.price}/night</span>
-                                                <span>Capacity: {room.capacity} guests</span>
+                                                <span>{interpolate(t.admin.dashboard.pricePerNight, { price: room.price })}</span>
+                                                <span>{interpolate(t.admin.dashboard.capacity, { count: room.capacity })}</span>
                                             </div>
                                         </div>
                                     </div>
