@@ -23,6 +23,8 @@ export async function GET(
     return NextResponse.json(room)
 }
 
+const ROOM_UPDATE_FIELDS = ['name', 'description', 'price', 'capacity', 'amenities', 'images'] as const
+
 export async function PUT(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
@@ -35,9 +37,29 @@ export async function PUT(
     try {
         const { id } = await params;
         const data = await request.json()
+
+        // Validate at least one field is present
+        if (!data || Object.keys(data).length === 0) {
+            return NextResponse.json({ error: 'No fields to update' }, { status: 400 })
+        }
+
+        // Validate types if provided
+        if (data.price !== undefined && (typeof data.price !== 'number' || data.price <= 0)) {
+            return NextResponse.json({ error: 'Price must be a positive number' }, { status: 400 })
+        }
+        if (data.capacity !== undefined && (typeof data.capacity !== 'number' || data.capacity < 1)) {
+            return NextResponse.json({ error: 'Capacity must be at least 1' }, { status: 400 })
+        }
+
+        // Whitelist only allowed fields
+        const updateData: Record<string, unknown> = {}
+        for (const field of ROOM_UPDATE_FIELDS) {
+            if (field in data) updateData[field] = data[field]
+        }
+
         const room = await prisma.room.update({
             where: { id: parseInt(id) },
-            data
+            data: updateData as any
         })
         return NextResponse.json(room)
     } catch (error) {

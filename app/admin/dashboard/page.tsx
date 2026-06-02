@@ -23,20 +23,8 @@ export default function AdminDashboard() {
     const router = useRouter()
 
     useEffect(() => {
-        checkAuth()
         fetchRooms()
     }, [])
-
-    const checkAuth = async () => {
-        try {
-            const res = await fetch('/api/auth/check')
-            if (!res.ok) {
-                router.push('/admin/login')
-            }
-        } catch (err) {
-            router.push('/admin/login')
-        }
-    }
 
     const fetchRooms = async () => {
         try {
@@ -132,13 +120,16 @@ export default function AdminDashboard() {
                             <div key={room.id} className="bg-white rounded-lg shadow p-6">
                                 <div className="flex justify-between items-start">
                                     <div className="flex gap-6">
-                                        {JSON.parse(room.images)[0] && (
-                                            <img
-                                                src={JSON.parse(room.images)[0]}
-                                                alt={room.name}
-                                                className="w-32 h-32 object-cover rounded"
-                                            />
-                                        )}
+                                        {(() => {
+                                            const images = room.images ? JSON.parse(room.images) : []
+                                            return images[0] && (
+                                                <img
+                                                    src={images[0]}
+                                                    alt={room.name}
+                                                    className="w-32 h-32 object-cover rounded"
+                                                />
+                                            )
+                                        })()}
                                         <div>
                                             <h3 className="text-2xl font-semibold mb-2">{room.name}</h3>
                                             <p className="text-gray-600 mb-2 line-clamp-2">{room.description}</p>

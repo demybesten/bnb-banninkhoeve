@@ -23,21 +23,22 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
         setSending(true)
 
         try {
-            const { sendContactEmail } = await import('@/lib/emailjs')
+            const { sendBookingEmail } = await import('@/lib/emailjs')
 
-            await sendContactEmail({
+            const nights = calculateNights()
+            const totalPrice = roomPrice ? nights * roomPrice : 0
+
+            await sendBookingEmail({
                 from_name: formData.name,
                 reply_to: formData.email,
                 phone: formData.phone,
-                message: `Booking Inquiry for ${roomName || 'Room'}\n\n` +
-                    `Check-in: ${checkIn}\n` +
-                    `Check-out: ${checkOut}\n` +
-                    `Guests: ${guests}\n` +
-                    `Room Price: $${roomPrice}/night\n\n` +
-                    `Message: ${formData.message}`,
+                message: formData.message || 'No special requests',
                 check_in: checkIn,
                 check_out: checkOut,
                 guests: guests,
+                room_name: roomName || 'Room',
+                nights: nights,
+                total_price: totalPrice > 0 ? `$${totalPrice}` : 'To be confirmed',
             })
 
             toast.success('Booking inquiry sent! We\'ll confirm availability shortly.')

@@ -2,7 +2,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import AvailabilityCalendar from '@/components/AvailabilityCalendar'
 import { toast } from 'react-hot-toast'
 
@@ -14,21 +13,10 @@ interface Room {
 export default function AvailabilityManagement() {
     const [rooms, setRooms] = useState<Room[]>([])
     const [selectedRoom, setSelectedRoom] = useState<number | null>(null)
-    const router = useRouter()
 
     useEffect(() => {
-        checkAuth()
         fetchRooms()
     }, [])
-
-    const checkAuth = async () => {
-        try {
-            const res = await fetch('/api/auth/check')
-            if (!res.ok) router.push('/admin/login')
-        } catch (err) {
-            router.push('/admin/login')
-        }
-    }
 
     const fetchRooms = async () => {
         try {
