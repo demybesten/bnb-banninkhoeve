@@ -96,13 +96,13 @@ export default async function Home() {
                         <div className="p-6">
                           <h3 className="text-2xl font-semibold mb-2">{getLocalizedField(room, 'name', locale)}</h3>
                           <p className="text-gray-600 mb-4 line-clamp-3">{getLocalizedField(room, 'description', locale)}</p>
-                          <div className="flex justify-between items-center">
+                          <div className="flex justify-between items-center gap-4">
                       <span className="text-2xl font-bold text-amber-800">
                         {t(dict.home.featuredRooms.pricePerNight, { price: room.price })}
                       </span>
                             <Link
                                 href={`/rooms/${room.id}`}
-                                className="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition"
+                                className="bg-amber-800 text-white px-3 py-1.5 rounded text-sm hover:bg-amber-700 transition shrink-0"
                             >
                               {dict.home.featuredRooms.viewDetails}
                             </Link>

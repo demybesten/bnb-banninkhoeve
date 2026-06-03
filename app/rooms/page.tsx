@@ -40,7 +40,7 @@ export default async function RoomsPage() {
                                     <p className="text-gray-600 mb-4 line-clamp-2">{getLocalizedField(room, 'description', locale)}</p>
                                     <div className="flex justify-between items-center">
                     <span className="text-2xl font-bold text-amber-800">
-                      {t(dict.rooms.pricePerNight, { price: room.price })}<span className="text-base font-normal">/night</span>
+                      {t(dict.rooms.pricePerNight, { price: room.price })}
                     </span>
                                         <span className="text-gray-500">{t(dict.rooms.upToGuests, { capacity: room.capacity })}</span>
                                     </div>
