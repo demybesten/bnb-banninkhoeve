@@ -1,7 +1,6 @@
 // app/api/upload/route.ts
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
+import { put } from '@vercel/blob'
 import { getSession } from '@/lib/auth'
 
 const ALLOWED_TYPES = [
@@ -55,36 +54,21 @@ export async function POST(request: Request) {
             }
         }
 
-        const uploadDir = join(process.cwd(), 'public', 'uploads')
-
-        // Ensure upload directory exists
-        try {
-            await mkdir(uploadDir, { recursive: true })
-        } catch (err) {
-            // Directory already exists
-        }
-
         const uploadedUrls: string[] = []
 
         for (const file of files) {
-            // Generate unique filename with safe extension
             const timestamp = Date.now()
             const randomString = Math.random().toString(36).substring(7)
             const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
-            // Map MIME type to safe extension
             const safeExtension = extension.replace(/[^a-z0-9]/g, '').slice(0, 4) || 'jpg'
-            const filename = `${timestamp}-${randomString}.${safeExtension}`
+            const filename = `uploads/${timestamp}-${randomString}.${safeExtension}`
 
-            const bytes = await file.arrayBuffer()
-            const buffer = Buffer.from(bytes)
+            const blob = await put(filename, file, {
+                access: 'public',
+                addRandomSuffix: false,
+            })
 
-            // Save file
-            const filepath = join(uploadDir, filename)
-            await writeFile(filepath, buffer)
-
-            // Create URL path
-            const url = `/uploads/${filename}`
-            uploadedUrls.push(url)
+            uploadedUrls.push(blob.url)
         }
 
         return NextResponse.json({ urls: uploadedUrls })

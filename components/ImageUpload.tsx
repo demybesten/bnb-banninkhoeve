@@ -22,19 +22,25 @@ export default function ImageUpload({ images, onChange }: ImageUploadProps) {
         setUploading(true)
 
         try {
-            const filePromises = Array.from(files).map((file) => {
-                return new Promise<string>((resolve, reject) => {
-                    const reader = new FileReader()
-                    reader.onload = () => resolve(reader.result as string)
-                    reader.onerror = reject
-                    reader.readAsDataURL(file)
-                })
+            const formData = new FormData()
+            Array.from(files).forEach((file) => {
+                formData.append('files', file)
             })
 
-            const base64Images = await Promise.all(filePromises)
-            onChange([...images, ...base64Images])
-        } catch (err) {
-            alert(t.admin.imageUpload.error)
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData,
+            })
+
+            if (!res.ok) {
+                const data = await res.json()
+                throw new Error(data.error || 'Upload failed')
+            }
+
+            const { urls } = await res.json()
+            onChange([...images, ...urls])
+        } catch (err: any) {
+            alert(err.message || t.admin.imageUpload.error)
         } finally {
             setUploading(false)
             e.target.value = ''
