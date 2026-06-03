@@ -28,10 +28,13 @@ export default async function EditRoomPage({ params }: { params: Promise<{ id: s
                     <RoomForm room={{
                         id: room.id,
                         name: room.name,
+                        nameNl: room.nameNl,
                         description: room.description,
+                        descriptionNl: room.descriptionNl,
                         price: room.price,
                         capacity: room.capacity,
                         amenities: room.amenities,
+                        amenitiesNl: room.amenitiesNl,
                         images: room.images
                     }} />
                 </div>

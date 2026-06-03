@@ -18,7 +18,7 @@ export async function GET() {
     }
 }
 
-const ROOM_FIELDS = ['name', 'description', 'price', 'capacity', 'amenities', 'images'] as const
+const ROOM_FIELDS = ['name', 'nameNl', 'description', 'descriptionNl', 'price', 'capacity', 'amenities', 'amenitiesNl', 'images'] as const
 
 function validateRoomData(data: Record<string, unknown>): { valid: boolean; error?: string } {
     if (!data.name || typeof data.name !== 'string' || data.name.trim().length === 0) {

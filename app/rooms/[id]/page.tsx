@@ -4,6 +4,7 @@ import RoomGallery from '@/components/RoomGallery'
 import BookingWidget from '@/components/BookingWidget'
 import AvailabilityCalendar from '@/components/AvailabilityCalendar'
 import { getTranslations, detectLocale } from '@/lib/i18n-server'
+import { getLocalizedField } from '@/lib/i18n'
 
 export default async function RoomDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
@@ -23,26 +24,27 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
     }
 
     const images = JSON.parse(room.images || '[]')
-    const amenities = room.amenities.split(',').map(a => a.trim()).filter(a => a !== '')
+    const amenitiesRaw = getLocalizedField(room, 'amenities', locale)
+    const amenities = amenitiesRaw.split(',').map(a => a.trim()).filter(a => a !== '')
 
     return (
         <div className="py-12">
             <div className="max-w-7xl mx-auto px-4">
                 {/* Gallery - Full Width */}
                 <div className="mb-8">
-                    <RoomGallery images={images} roomName={room.name} />
+                    <RoomGallery images={images} roomName={getLocalizedField(room, 'name', locale)} />
                 </div>
 
                 {/* Room Details */}
                 <div className="grid lg:grid-cols-3 gap-8">
                     {/* Main Content - Takes 2/3 */}
                     <div className="lg:col-span-2">
-                        <h1 className="text-4xl font-bold mb-4">{room.name}</h1>
+                        <h1 className="text-4xl font-bold mb-4">{getLocalizedField(room, 'name', locale)}</h1>
 
                         <div className="mb-8">
                             <h2 className="text-2xl font-semibold mb-4">{dict.roomDetail.description}</h2>
                             <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg">
-                                {room.description}
+                                {getLocalizedField(room, 'description', locale)}
                             </p>
                         </div>
                         <div className="mb-8">

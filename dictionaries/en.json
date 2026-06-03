@@ -246,7 +246,12 @@
       "updateSuccess": "Room updated!",
       "createSuccess": "Room created!",
       "genericError": "Something went wrong",
-      "saveError": "Failed to save room"
+      "saveError": "Failed to save room",
+      "englishLabel": "English",
+      "dutchLabel": "Dutch",
+      "roomNameNl": "Room Name (Dutch)",
+      "descriptionNl": "Description (Dutch)",
+      "amenitiesNl": "Amenities (Dutch)"
     },
     "newRoom": {
       "title": "Create New Room"

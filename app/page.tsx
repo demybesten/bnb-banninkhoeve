@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import GoogleReviews from '@/components/GoogleReviews'
 import { getTranslations, detectLocale } from '@/lib/i18n-server'
-import { t } from '@/lib/i18n'
+import { t, getLocalizedField } from '@/lib/i18n'
 
 export default async function Home() {
   const locale = await detectLocale()
@@ -88,14 +88,14 @@ export default async function Home() {
                           {room.images && JSON.parse(room.images)[0] && (
                               <img
                                   src={JSON.parse(room.images)[0]}
-                                  alt={room.name}
+                                  alt={getLocalizedField(room, 'name', locale)}
                                   className="w-full h-full object-cover"
                               />
                           )}
                         </div>
                         <div className="p-6">
-                          <h3 className="text-2xl font-semibold mb-2">{room.name}</h3>
-                          <p className="text-gray-600 mb-4 line-clamp-3">{room.description}</p>
+                          <h3 className="text-2xl font-semibold mb-2">{getLocalizedField(room, 'name', locale)}</h3>
+                          <p className="text-gray-600 mb-4 line-clamp-3">{getLocalizedField(room, 'description', locale)}</p>
                           <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-amber-800">
                         {t(dict.home.featuredRooms.pricePerNight, { price: room.price })}

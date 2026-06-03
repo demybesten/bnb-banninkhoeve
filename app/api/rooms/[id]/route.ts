@@ -23,7 +23,7 @@ export async function GET(
     return NextResponse.json(room)
 }
 
-const ROOM_UPDATE_FIELDS = ['name', 'description', 'price', 'capacity', 'amenities', 'images'] as const
+const ROOM_UPDATE_FIELDS = ['name', 'nameNl', 'description', 'descriptionNl', 'price', 'capacity', 'amenities', 'amenitiesNl', 'images'] as const
 
 export async function PUT(
     request: Request,

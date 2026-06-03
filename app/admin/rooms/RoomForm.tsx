@@ -11,10 +11,13 @@ interface RoomFormProps {
     room?: {
         id?: number
         name: string
+        nameNl?: string | null
         description: string
+        descriptionNl?: string | null
         price: number
         capacity: number
         amenities: string
+        amenitiesNl?: string | null
         images: string
     }
 }
@@ -24,15 +27,19 @@ export default function RoomForm({ room }: RoomFormProps) {
     const router = useRouter()
     const [formData, setFormData] = useState({
         name: room?.name || '',
+        nameNl: room?.nameNl || '',
         description: room?.description || '',
+        descriptionNl: room?.descriptionNl || '',
         price: room?.price || '',
         capacity: room?.capacity || '',
         amenities: room?.amenities || '',
+        amenitiesNl: room?.amenitiesNl || '',
     })
     const [images, setImages] = useState<string[]>(
         room?.images ? JSON.parse(room.images) : []
     )
     const [saving, setSaving] = useState(false)
+    const [activeLang, setActiveLang] = useState<'en' | 'nl'>('en')
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -72,34 +79,124 @@ export default function RoomForm({ room }: RoomFormProps) {
         }
     }
 
+    const set = (field: string, value: string) =>
+        setFormData(prev => ({ ...prev, [field]: value }))
+
     return (
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-6">
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t.admin.roomForm.roomName}
-                </label>
-                <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
-                />
+            {/* Language Tabs */}
+            <div className="flex gap-2 border-b border-gray-200 pb-2">
+                <button
+                    type="button"
+                    onClick={() => setActiveLang('en')}
+                    className={`px-4 py-2 rounded-t font-medium transition ${
+                        activeLang === 'en'
+                            ? 'bg-amber-800 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                >
+                    {t.admin.roomForm.englishLabel}
+                </button>
+                <button
+                    type="button"
+                    onClick={() => setActiveLang('nl')}
+                    className={`px-4 py-2 rounded-t font-medium transition ${
+                        activeLang === 'nl'
+                            ? 'bg-amber-800 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    }`}
+                >
+                    {t.admin.roomForm.dutchLabel}
+                </button>
             </div>
 
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t.admin.roomForm.description}
-                </label>
-                <textarea
-                    required
-                    rows={6}
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
-                />
-            </div>
+            {/* English fields */}
+            {activeLang === 'en' && (
+                <>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.roomName}
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => set('name', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
 
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.description}
+                        </label>
+                        <textarea
+                            required
+                            rows={6}
+                            value={formData.description}
+                            onChange={(e) => set('description', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.amenities}
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.amenities}
+                            onChange={(e) => set('amenities', e.target.value)}
+                            placeholder={t.admin.roomForm.amenitiesPlaceholder}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
+                </>
+            )}
+
+            {/* Dutch fields */}
+            {activeLang === 'nl' && (
+                <>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.roomNameNl}
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.nameNl}
+                            onChange={(e) => set('nameNl', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.descriptionNl}
+                        </label>
+                        <textarea
+                            rows={6}
+                            value={formData.descriptionNl}
+                            onChange={(e) => set('descriptionNl', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            {t.admin.roomForm.amenitiesNl}
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.amenitiesNl}
+                            onChange={(e) => set('amenitiesNl', e.target.value)}
+                            placeholder={t.admin.roomForm.amenitiesPlaceholder}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
+                        />
+                    </div>
+                </>
+            )}
+
+            {/* Shared fields (not language-specific) */}
             <div className="grid grid-cols-2 gap-6">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -111,7 +208,7 @@ export default function RoomForm({ room }: RoomFormProps) {
                         min="0"
                         step="0.01"
                         value={formData.price}
-                        onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                        onChange={(e) => set('price', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
                     />
                 </div>
@@ -125,23 +222,10 @@ export default function RoomForm({ room }: RoomFormProps) {
                         required
                         min="1"
                         value={formData.capacity}
-                        onChange={(e) => setFormData({ ...formData, capacity: e.target.value })}
+                        onChange={(e) => set('capacity', e.target.value)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
                     />
                 </div>
-            </div>
-
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t.admin.roomForm.amenities}
-                </label>
-                <input
-                    type="text"
-                    value={formData.amenities}
-                    onChange={(e) => setFormData({ ...formData, amenities: e.target.value })}
-                    placeholder={t.admin.roomForm.amenitiesPlaceholder}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-amber-500 focus:border-amber-500"
-                />
             </div>
 
             <div>

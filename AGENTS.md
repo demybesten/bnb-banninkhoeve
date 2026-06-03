@@ -48,17 +48,24 @@ Copy `.env.example` to `.env.local` and fill in required values before running.
 
 ## Internationalization
 
-The site supports English (`en`) and Dutch (`nl`). Key rules:
+The site supports English (`en`) and Dutch (`nl`). There are two i18n layers:
 
+**Static text** (`dictionaries/{locale}.json`):
 - Translation keys are defined as typed JSON in `dictionaries/{locale}.json`.
-- Use `lib/i18n.ts` for server-side dictionary loading and `lib/i18n-client.tsx` for the client-side React context.
+- Use `lib/i18n.ts` for server-side dictionary loading and `lib/i18n-client.tsx` for the client-side React context (`useT()`).
 - Add new keys to **both** `en.json` and `nl.json`. The `Dictionary` type is derived from `en.json` — missing keys in `nl.json` will cause type errors.
 - The `LanguageSwitcher` component reads/writes locale via URL path or cookie.
+
+**Dynamic/room content** (database fields):
+- Room model has parallel fields for Dutch translations: `name` / `nameNl`, `description` / `descriptionNl`, `amenities` / `amenitiesNl`.
+- Dutch fields are nullable — if empty, the frontend falls back to the English field automatically.
+- Use `getLocalizedField(room, 'name', locale)` from `lib/i18n.ts` to resolve the correct field at render time.
+- Admin RoomForm uses language tabs (English/Dutch) to edit both versions side-by-side.
 
 ## Database
 
 - **SQLite** via Prisma ORM. Schema at `prisma/schema.prisma`.
-- Models: `Room`, `Admin`, `Booking`, `IcalSource`.
+- Models: `Room` (with `nameNl`/`descriptionNl`/`amenitiesNl` for i18n), `Admin`, `Booking`, `IcalSource`.
 - After schema changes, run `npm run db:generate` to update the Prisma client.
 - Seed data via `scripts/seed.ts` — update it when adding required defaults.
 

@@ -11,6 +11,7 @@ import { t as interpolate } from '@/lib/i18n'
 interface Room {
     id: number
     name: string
+    nameNl?: string | null
     description: string
     price: number
     capacity: number

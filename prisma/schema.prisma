@@ -9,17 +9,20 @@ datasource db {
 }
 
 model Room {
-  id          Int          @id @default(autoincrement())
-  name        String
-  description String
-  price       Float
-  capacity    Int
-  amenities   String
-  images      String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  bookings    Booking[]
-  icalSources IcalSource[]
+  id            Int          @id @default(autoincrement())
+  name          String
+  nameNl        String?
+  description   String
+  descriptionNl String?
+  price         Float
+  capacity      Int
+  amenities     String
+  amenitiesNl   String?
+  images        String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  bookings      Booking[]
+  icalSources   IcalSource[]
 }
 
 model Admin {

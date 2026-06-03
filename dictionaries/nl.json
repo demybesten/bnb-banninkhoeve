@@ -246,7 +246,12 @@
       "updateSuccess": "Kamer bijgewerkt!",
       "createSuccess": "Kamer aangemaakt!",
       "genericError": "Er is iets misgegaan",
-      "saveError": "Opslaan van kamer mislukt"
+      "saveError": "Opslaan van kamer mislukt",
+      "englishLabel": "Engels",
+      "dutchLabel": "Nederlands",
+      "roomNameNl": "Kamernaam (Nederlands)",
+      "descriptionNl": "Beschrijving (Nederlands)",
+      "amenitiesNl": "Voorzieningen (Nederlands)"
     },
     "newRoom": {
       "title": "Nieuwe Kamer Aanmaken"
