@@ -2,26 +2,7 @@
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
-
-async function hashPassword(password: string) {
-    const bcryptjs = require('bcryptjs')
-    return bcryptjs.hash(password, 12)
-}
-
 async function main() {
-    // Create admin user
-    const bcryptjs = require('bcryptjs')
-    const hashedPassword = await bcryptjs.hash('admin123', 12)
-
-    await prisma.admin.upsert({
-        where: { username: 'admin' },
-        update: {},
-        create: {
-            username: 'admin',
-            password: hashedPassword,
-        },
-    })
-
     // Create sample rooms
     const rooms = [
         {

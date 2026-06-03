@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import { Toaster } from 'react-hot-toast'
 import { getTranslations, detectLocale } from '@/lib/i18n-server'
 import { TranslationProvider } from '@/lib/i18n-client'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,6 +39,7 @@ export default async function RootLayout({
           </main>
           <Footer />
         </TranslationProvider>
+          <Analytics />
       </body>
     </html>
   )
