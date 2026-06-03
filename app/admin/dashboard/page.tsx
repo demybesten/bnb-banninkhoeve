@@ -2,10 +2,9 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
-import { HiPencil, HiTrash, HiPlus, HiCalendar } from 'react-icons/hi'
+import { HiPencil, HiTrash } from 'react-icons/hi'
 import { useT } from '@/lib/i18n-client'
 import { t as interpolate } from '@/lib/i18n'
 
@@ -23,7 +22,6 @@ export default function AdminDashboard() {
     const t = useT()
     const [rooms, setRooms] = useState<Room[]>([])
     const [loading, setLoading] = useState(true)
-    const router = useRouter()
 
     useEffect(() => {
         fetchRooms()
@@ -60,11 +58,6 @@ export default function AdminDashboard() {
         }
     }
 
-    const handleLogout = async () => {
-        await fetch('/api/auth/logout', { method: 'POST' })
-        router.push('/admin/login')
-    }
-
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-screen">
@@ -75,34 +68,6 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-amber-800">{t.admin.dashboard.title}</h1>
-                    <div className="flex gap-4 items-center">
-                        <Link
-                            href="/admin/availability"
-                            className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600 transition flex items-center gap-2"
-                        >
-                            <HiCalendar />
-                            {t.admin.dashboard.manageAvailability}
-                        </Link>
-                        <Link
-                            href="/admin/rooms/new"
-                            className="bg-amber-800 text-white px-4 py-2 rounded hover:bg-amber-700 transition flex items-center gap-2"
-                        >
-                            <HiPlus />
-                            {t.admin.dashboard.addRoom}
-                        </Link>
-                        <button
-                            onClick={handleLogout}
-                            className="text-gray-600 hover:text-gray-800"
-                        >
-                            {t.admin.dashboard.logout}
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
             <div className="max-w-7xl mx-auto px-4 py-8">
                 <h2 className="text-3xl font-bold mb-8">{t.admin.dashboard.manageRooms}</h2>
 

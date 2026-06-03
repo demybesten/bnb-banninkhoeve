@@ -9,16 +9,17 @@ datasource db {
 }
 
 model Room {
-  id          Int      @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String
   description String
   price       Float
   capacity    Int
   amenities   String
   images      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   bookings    Booking[]
+  icalSources IcalSource[]
 }
 
 model Admin {
@@ -35,6 +36,20 @@ model Booking {
   checkOut  DateTime
   guestName String?
   status    String   @default("confirmed") // confirmed, cancelled
+  source    String?  // "manual", "airbnb", "bedandbreakfast", etc.
+  icalUid   String?  // VEVENT UID from iCal feed (for deduplication)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model IcalSource {
+  id        Int       @id @default(autoincrement())
+  roomId    Int
+  room      Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  name      String    // "Airbnb", "Bedandbreakfast", etc.
+  url       String    // The .ics URL
+  enabled   Boolean   @default(true)
+  lastSync  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

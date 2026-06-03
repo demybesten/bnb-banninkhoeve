@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import AvailabilityCalendar from '@/components/AvailabilityCalendar'
+import IcalSourceManager from '@/components/IcalSourceManager'
 import { toast } from 'react-hot-toast'
 import { useT } from '@/lib/i18n-client'
 
@@ -15,6 +16,7 @@ export default function AvailabilityManagement() {
     const t = useT()
     const [rooms, setRooms] = useState<Room[]>([])
     const [selectedRoom, setSelectedRoom] = useState<number | null>(null)
+    const [tab, setTab] = useState<'calendar' | 'sync'>('calendar')
 
     useEffect(() => {
         fetchRooms()
@@ -33,15 +35,9 @@ export default function AvailabilityManagement() {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 py-4">
-                    <h1 className="text-2xl font-bold text-amber-800">{t.admin.availability.title}</h1>
-                </div>
-            </nav>
-
             <div className="max-w-7xl mx-auto px-4 py-8">
-                {/* Room Selector */}
-                <div className="mb-8">
+                {/* Room Selector (shared by both tabs) */}
+                <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         {t.admin.availability.selectRoom}
                     </label>
@@ -62,9 +58,36 @@ export default function AvailabilityManagement() {
                     </div>
                 </div>
 
-                {/* Calendar */}
-                {selectedRoom && (
+                {/* Tab Switcher */}
+                <div className="flex gap-0 mb-8">
+                    <button
+                        onClick={() => setTab('calendar')}
+                        className={`px-6 py-3 rounded-l-lg font-semibold transition ${
+                            tab === 'calendar'
+                                ? 'bg-amber-800 text-white'
+                                : 'bg-white text-gray-700 hover:bg-amber-50'
+                        }`}
+                    >
+                        Calendar
+                    </button>
+                    <button
+                        onClick={() => setTab('sync')}
+                        className={`px-6 py-3 rounded-r-lg font-semibold transition ${
+                            tab === 'sync'
+                                ? 'bg-amber-800 text-white'
+                                : 'bg-white text-gray-700 hover:bg-amber-50'
+                        }`}
+                    >
+                        iCal Sync
+                    </button>
+                </div>
+
+                {tab === 'calendar' && selectedRoom && (
                     <AvailabilityCalendar roomId={selectedRoom} isAdmin={true} />
+                )}
+
+                {tab === 'sync' && selectedRoom && (
+                    <IcalSourceManager roomId={selectedRoom} />
                 )}
             </div>
         </div>

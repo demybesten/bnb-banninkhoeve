@@ -1,6 +1,7 @@
 // app/admin/layout.tsx — Admin layout: Dutch-only, no public nav/footer
 import { getTranslations } from '@/lib/i18n-server'
 import { TranslationProvider } from '@/lib/i18n-client'
+import AdminHeader from '@/components/AdminHeader'
 
 export default async function AdminLayout({
   children,
@@ -11,6 +12,7 @@ export default async function AdminLayout({
 
   return (
     <TranslationProvider dictionary={t} initialLocale="nl">
+      <AdminHeader />
       {children}
     </TranslationProvider>
   )

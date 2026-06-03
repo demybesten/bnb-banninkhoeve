@@ -12,6 +12,7 @@ interface Booking {
     checkOut: string
     guestName: string | null
     status: string
+    source: string | null
 }
 
 interface AvailabilityCalendarProps {
@@ -515,9 +516,16 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                         {bookings.map(booking => (
                             <div key={booking.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-lg text-sm">
                                 <div>
-                                    <p className="font-medium">
-                                        {new Date(booking.checkIn).toLocaleDateString('en-US')} → {new Date(booking.checkOut).toLocaleDateString('en-US')}
-                                    </p>
+                                    <div className="flex items-center gap-2">
+                                        <p className="font-medium">
+                                            {new Date(booking.checkIn).toLocaleDateString('en-US')} → {new Date(booking.checkOut).toLocaleDateString('en-US')}
+                                        </p>
+                                        {booking.source && booking.source !== 'manual' && (
+                                            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">
+                                                {booking.source}
+                                            </span>
+                                        )}
+                                    </div>
                                     {booking.guestName && booking.guestName !== 'Blocked' && (
                                         <p className="text-gray-600">{booking.guestName}</p>
                                     )}
