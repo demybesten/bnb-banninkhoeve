@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { HiTrash, HiPlus, HiChevronLeft, HiChevronRight } from 'react-icons/hi'
+import { HiTrash, HiPlus, HiChevronLeft, HiChevronRight, HiRefresh } from 'react-icons/hi'
 import { useT } from '@/lib/i18n-client'
 
 interface Booking {
@@ -40,6 +40,8 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         message: ''
     })
     const [sending, setSending] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
+    const [cooldown, setCooldown] = useState(0)
 
     // Admin block form
     const [newBooking, setNewBooking] = useState({
@@ -52,6 +54,21 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         fetchBookings()
     }, [roomId])
 
+    // Cooldown countdown timer
+    useEffect(() => {
+        if (cooldown <= 0) return
+        const timer = setInterval(() => {
+            setCooldown(prev => {
+                if (prev <= 1) {
+                    clearInterval(timer)
+                    return 0
+                }
+                return prev - 1
+            })
+        }, 1000)
+        return () => clearInterval(timer)
+    }, [cooldown])
+
     const fetchBookings = async () => {
         try {
             const res = await fetch(`/api/rooms/${roomId}/availability`)
@@ -63,6 +80,30 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             console.error('Failed to fetch bookings:', err)
         } finally {
             setLoading(false)
+        }
+    }
+
+    // Trigger iCal sync to refresh availability from external platforms
+    const handleRefresh = async () => {
+        setRefreshing(true)
+        try {
+            const res = await fetch('/api/calendar/sync', { method: 'POST' })
+            const data = await res.json()
+
+            if (res.status === 429) {
+                setCooldown(data.retryAfterSeconds || 300)
+                toast.error(t.calendar.refreshWait)
+            } else if (res.ok) {
+                toast.success(t.calendar.refreshSuccess)
+                fetchBookings()
+                setCooldown(300) // 5-min cooldown
+            } else {
+                toast.error(data.error || 'Sync failed')
+            }
+        } catch (err) {
+            toast.error('Failed to refresh')
+        } finally {
+            setRefreshing(false)
         }
     }
 
@@ -305,6 +346,21 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                         className="flex items-center gap-2 bg-amber-800 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition text-sm"
                     >
                         <HiPlus /> {t.calendar.blockDates}
+                    </button>
+                )}
+                {!isAdmin && (
+                    <button
+                        onClick={handleRefresh}
+                        disabled={refreshing || cooldown > 0}
+                        className="flex items-center gap-2 bg-white text-amber-800 border border-amber-800 px-4 py-2 rounded-lg hover:bg-amber-50 transition text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                        title={cooldown > 0 ? `Wait ${cooldown}s before refreshing again` : 'Check for new bookings from Airbnb & Bedandbreakfast'}
+                    >
+                        <HiRefresh className={refreshing ? 'animate-spin' : ''} />
+                        {refreshing
+                            ? t.calendar.refreshing
+                            : cooldown > 0
+                                ? `${cooldown}s`
+                                : t.calendar.refreshAvailability}
                     </button>
                 )}
             </div>

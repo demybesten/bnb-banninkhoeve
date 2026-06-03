@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Cozy B&B - Your Home Away From Home",
-    "description": "Experience comfort and luxury at our charming bed and breakfast"
+    "title": "Banninkhoeve — Farmhouse B&B in Heino, Overijssel | Salland Countryside",
+    "description": "Unique guest accommodation in a converted farmhouse back house near Heino. Peaceful rural setting, homemade breakfast, wheelchair accessible. Perfect for walkers, cyclists, and nature lovers. Rated 8.9/10."
   },
   "common": {
-    "siteName": "Cozy B&B",
+    "siteName": "Banninkhoeve",
     "loading": "Loading..."
   },
   "nav": {
@@ -14,76 +14,76 @@
     "contact": "Contact"
   },
   "footer": {
-    "tagline": "Your home away from home in the heart of the city.",
+    "tagline": "Peace, nature, and farmhouse charm in the heart of Salland",
     "contact": "Contact",
-    "address": "123 Main Street",
-    "cityState": "City, State 12345",
-    "phone": "Phone: (555) 123-4567",
-    "email": "Email: info@cozybnb.com",
+    "address": "Kleinjansweg 6, 8141PN Heino, Overijssel, The Netherlands",
+    "cityState": "Heino, Overijssel, The Netherlands",
+    "phone": "Phone: [PHONE]",
+    "email": "Email: [EMAIL]",
     "quickLinks": "Quick Links",
     "ourRooms": "Our Rooms",
     "aboutUs": "About Us",
     "contactLink": "Contact",
-    "copyright": "© 2024 Cozy B&B. All rights reserved."
+    "copyright": "© Banninkhoeve. All rights reserved."
   },
   "home": {
     "hero": {
-      "title": "Welcome to Cozy B&B",
-      "subtitle": "Experience comfort, luxury, and warm hospitality",
+      "title": "Welcome to Banninkhoeve",
+      "subtitle": "Unique and complete guest accommodation in the back house of our residential farmhouse",
       "viewRooms": "View Rooms",
       "contactUs": "Contact Us"
     },
     "features": {
-      "title": "Why Choose Us",
+      "title": "Why Stay With Us",
       "comfortable": {
-        "title": "Comfortable Rooms",
-        "description": "Each room is carefully designed for your ultimate comfort and relaxation."
+        "title": "Rural Tranquility",
+        "description": "Nestled in the scenic Salland countryside with beautiful views, surrounded by walking and cycling routes."
       },
       "breakfast": {
-        "title": "Homemade Breakfast",
-        "description": "Start your day with a delicious, freshly prepared breakfast."
+        "title": "Farmhouse Breakfast",
+        "description": "Delicious, freshly prepared breakfast with local and homemade products. Dietary options available on request."
       },
       "location": {
-        "title": "Perfect Location",
-        "description": "Centrally located with easy access to all major attractions."
+        "title": "Warm Hospitality",
+        "description": "Personal, friendly welcome from your host Tea, who speaks Dutch, German, and English."
       }
     },
     "featuredRooms": {
       "title": "Our Rooms",
-      "pricePerNight": "${price}/night",
+      "pricePerNight": "€{price}/night",
       "viewDetails": "View Details",
       "viewAll": "View All Rooms"
     },
     "bookDirect": {
       "title": "Why Book Direct?",
       "bestPrice": {
-        "title": "Best Price",
-        "description": "No booking fees or commission. Save up to 15% compared to booking platforms."
+        "title": "Best Rate",
+        "description": "No booking fees or commission. Save compared to booking platforms when you book directly with us."
       },
       "perks": {
-        "title": "Special Perks",
-        "description": "Direct bookers get complimentary late checkout and welcome drinks."
+        "title": "Personal Service",
+        "description": "Talk directly with Tea. We can customize your stay and accommodate special requests including dietary needs."
       },
       "service": {
-        "title": "Personal Service",
-        "description": "Talk directly with us. We can customize your stay and accommodate special requests."
+        "title": "Farmhouse Breakfast Included",
+        "description": "Every stay includes a delicious breakfast with local and homemade products, served fresh each morning."
       }
     }
   },
   "about": {
-    "title": "About Cozy B&B",
+    "title": "About Banninkhoeve",
     "ourStory": "Our Story",
-    "storyP1": "Welcome to Cozy B&B, where comfort meets elegance. Our charming bed and breakfast has been welcoming guests since 2010, offering a warm and inviting atmosphere that makes you feel right at home.",
-    "storyP2": "Located in the heart of the city, we provide the perfect base for exploring local attractions while enjoying peaceful and comfortable accommodations.",
-    "storyP3": "Each morning, we serve a delicious homemade breakfast made with fresh, locally-sourced ingredients. Our rooms are individually decorated to provide a unique and memorable stay for every guest.",
+    "storyP1": "Banninkhoeve is a residential farmhouse whose back house has been transformed into a unique guest accommodation. Located just outside the village of Heino in the province of Overijssel, our B&B offers an authentic stay in the beautiful Salland region.",
+    "storyP2": "Surrounded by meadows, farmland, and scenic cycling and walking routes, Banninkhoeve is the ideal base for nature lovers. The bustling cities of Zwolle and Deventer are a short drive away, while the peaceful countryside is right on your doorstep.",
+    "storyP3": "Your host Tea takes pride in offering a warm, personal welcome and a delicious breakfast featuring local and homemade products — with vegetarian, vegan, gluten-free, and lactose-free options always available on request.",
     "photoPlaceholder": "Photo of our B&B",
     "testimonials": {
       "title": "What Our Guests Say",
-      "testimonial1": "Amazing experience! The room was beautiful and the breakfast was delicious. Will definitely come back.",
+      "testimonial1": "Amazing experience! The farmhouse is beautiful and the breakfast was delicious. Will definitely come back.",
       "author1": "Sarah M.",
-      "testimonial2": "The perfect place for a weekend getaway. The hosts were incredibly welcoming and helpful with local recommendations.",
+      "testimonial2": "The perfect place for a countryside getaway. Tea was incredibly welcoming and helpful with local walking routes.",
       "author2": "James & Emily T.",
-      "testimonial3": "Beautiful property with attention to every detail. The garden is stunning and the location couldn't be better.",
+      "testimonial3": "Beautiful property with attention to every detail. The garden is stunning and the location couldn't be better for cycling.",
       "author3": "Michael R."
     }
   },
@@ -91,12 +91,12 @@
     "title": "Contact Us",
     "getInTouch": "Get in Touch",
     "address": "Address",
-    "addressLine1": "123 Main Street",
-    "addressLine2": "City, State 12345",
+    "addressLine1": "Kleinjansweg 6",
+    "addressLine2": "8141PN Heino, Overijssel, The Netherlands",
     "phone": "Phone",
-    "phoneNumber": "(555) 123-4567",
+    "phoneNumber": "[PHONE]",
     "email": "Email",
-    "emailAddress": "info@cozybnb.com",
+    "emailAddress": "[EMAIL]",
     "sendMessage": "Send us a Message",
     "form": {
       "name": "Name *",
@@ -108,13 +108,13 @@
       "submit": "Send Message"
     },
     "findUs": "Find Us",
-    "successToast": "Message sent successfully! We'll get back to you soon.",
-    "errorToast": "Failed to send message. Please try again."
+    "successToast": "Thank you! We'll get back to you soon.",
+    "errorToast": "Something went wrong. Please try again."
   },
   "rooms": {
     "title": "Our Rooms",
     "noRooms": "No rooms available at the moment.",
-    "pricePerNight": "${price}/night",
+    "pricePerNight": "€{price}/night",
     "upToGuests": "Up to {capacity} guests"
   },
   "roomDetail": {
@@ -159,9 +159,9 @@
       "submit": "Send Booking Request",
       "cancel": "Cancel"
     },
-    "bestRate": "💰 Best Rate Guaranteed When You Book Direct!",
-    "callUs": "Call (555) 123-4567",
-    "emailUs": "info@cozybnb.com",
+    "bestRate": "Best Rate When You Book Direct!",
+    "callUs": "Call [PHONE]",
+    "emailUs": "[EMAIL]",
     "noSpecialRequests": "No special requests",
     "toBeConfirmed": "To be confirmed",
     "successToast": "Booking inquiry sent! We'll confirm availability shortly.",
@@ -180,7 +180,11 @@
       "selected": "Selected",
       "available": "Available"
     },
-    "upcomingBookings": "Upcoming Bookings"
+    "upcomingBookings": "Upcoming Bookings",
+    "refreshAvailability": "Refresh Availability",
+    "refreshing": "Refreshing...",
+    "refreshSuccess": "Availability refreshed!",
+    "refreshWait": "Just updated. Please wait before refreshing again."
   },
   "reviews": {
     "title": "What Our Guests Say",
@@ -220,7 +224,7 @@
       "manageRooms": "Manage Rooms",
       "noRooms": "No rooms created yet",
       "createFirst": "Create Your First Room",
-      "pricePerNight": "Price: ${price}/night",
+      "pricePerNight": "Price: €{price}/night",
       "capacity": "Capacity: {count} guests",
       "fetchError": "Failed to fetch rooms",
       "confirmDelete": "Are you sure you want to delete this room?",
@@ -230,7 +234,7 @@
     "roomForm": {
       "roomName": "Room Name",
       "description": "Description",
-      "pricePerNight": "Price per Night ($)",
+      "pricePerNight": "Price per Night (€)",
       "capacity": "Capacity (guests)",
       "amenities": "Amenities (comma-separated)",
       "amenitiesPlaceholder": "WiFi, TV, Air Conditioning, Mini Bar",

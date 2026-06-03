@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Cozy B&B - Uw Thuis Weg Van Huis",
-    "description": "Ervaar comfort en luxe in onze charmante bed & breakfast"
+    "title": "Banninkhoeve — Boerderij B&B in Heino, Overijssel | Sallands Platteland",
+    "description": "Unieke gastenaccommodatie in een verbouwd boerderij-achterhuis bij Heino. Rustige landelijke ligging, huisgemaakt ontbijt, rolstoeltoegankelijk. Perfect voor wandelaars, fietsers en natuurliefhebbers. Beoordeeld met 8,9/10."
   },
   "common": {
-    "siteName": "Cozy B&B",
+    "siteName": "Banninkhoeve",
     "loading": "Laden..."
   },
   "nav": {
@@ -14,38 +14,38 @@
     "contact": "Contact"
   },
   "footer": {
-    "tagline": "Uw thuis weg van huis in het hart van de stad.",
+    "tagline": "Rust, natuur en boerderijcharme in het hart van Salland",
     "contact": "Contact",
-    "address": "Hoofdstraat 123",
-    "cityState": "Stad, Provincie 12345",
-    "phone": "Tel: (555) 123-4567",
-    "email": "E-mail: info@cozybnb.com",
+    "address": "Kleinjansweg 6, 8141PN Heino, Overijssel, Nederland",
+    "cityState": "Heino, Overijssel, Nederland",
+    "phone": "Tel: [PHONE]",
+    "email": "E-mail: [EMAIL]",
     "quickLinks": "Snelle Links",
     "ourRooms": "Onze Kamers",
     "aboutUs": "Over Ons",
     "contactLink": "Contact",
-    "copyright": "© 2024 Cozy B&B. Alle rechten voorbehouden."
+    "copyright": "© Banninkhoeve. Alle rechten voorbehouden."
   },
   "home": {
     "hero": {
-      "title": "Welkom bij Cozy B&B",
-      "subtitle": "Ervaar comfort, luxe en warme gastvrijheid",
+      "title": "Welkom bij Banninkhoeve",
+      "subtitle": "Unieke en complete gastenaccommodatie in het achterhuis van onze woonboerderij",
       "viewRooms": "Bekijk Kamers",
       "contactUs": "Neem Contact Op"
     },
     "features": {
-      "title": "Waarom Voor Ons Kiezen",
+      "title": "Waarom Kiezen voor Ons",
       "comfortable": {
-        "title": "Comfortabele Kamers",
-        "description": "Elke kamer is zorgvuldig ontworpen voor uw ultieme comfort en ontspanning."
+        "title": "Landelijke Rust",
+        "description": "Genesteld in het schilderachtige Sallandse landschap met prachtig uitzicht, omringd door wandel- en fietsroutes."
       },
       "breakfast": {
-        "title": "Huisgemaakt Ontbijt",
-        "description": "Begin uw dag met een heerlijk, vers bereid ontbijt."
+        "title": "Boerenontbijt",
+        "description": "Heerlijk, vers bereid ontbijt met streekproducten en zelfgemaakte lekkernijen. Dieetopties op aanvraag beschikbaar."
       },
       "location": {
-        "title": "Perfecte Locatie",
-        "description": "Centraal gelegen met gemakkelijke toegang tot alle belangrijke bezienswaardigheden."
+        "title": "Warme Gastvrijheid",
+        "description": "Persoonlijk, vriendelijk onthaal door uw gastvrouw Tea, die Nederlands, Duits en Engels spreekt."
       }
     },
     "featuredRooms": {
@@ -58,32 +58,32 @@
       "title": "Waarom Direct Boeken?",
       "bestPrice": {
         "title": "Beste Prijs",
-        "description": "Geen boekingskosten of commissie. Bespaar tot 15% vergeleken met boekingsplatforms."
+        "description": "Geen boekingskosten of commissie. Bespaar vergeleken met boekingsplatforms wanneer u direct bij ons boekt."
       },
       "perks": {
-        "title": "Speciale Extra's",
-        "description": "Directe boekers krijgen gratis late checkout en welkomstdrankjes."
+        "title": "Persoonlijke Service",
+        "description": "Praat direct met Tea. Wij kunnen uw verblijf aanpassen en dieetwensen accommoderen."
       },
       "service": {
-        "title": "Persoonlijke Service",
-        "description": "Praat direct met ons. Wij kunnen uw verblijf aanpassen en speciale verzoeken accommoderen."
+        "title": "Boerenontbijt Inbegrepen",
+        "description": "Elk verblijf is inclusief een heerlijk ontbijt met streekproducten en zelfgemaakte lekkernijen, elke ochtend vers bereid."
       }
     }
   },
   "about": {
-    "title": "Over Cozy B&B",
+    "title": "Over Banninkhoeve",
     "ourStory": "Ons Verhaal",
-    "storyP1": "Welkom bij Cozy B&B, waar comfort en elegantie samenkomen. Onze charmante bed & breakfast verwelkomt gasten sinds 2010 en biedt een warme en uitnodigende sfeer waarin u zich meteen thuis voelt.",
-    "storyP2": "Gelegen in het hart van de stad, bieden wij de perfecte uitvalsbasis om lokale bezienswaardigheden te verkennen terwijl u geniet van een rustig en comfortabel verblijf.",
-    "storyP3": "Elke ochtend serveren wij een heerlijk huisgemaakt ontbijt met verse, lokaal geproduceerde ingrediënten. Onze kamers zijn individueel ingericht voor een uniek en onvergetelijk verblijf voor elke gast.",
+    "storyP1": "Banninkhoeve is een woonboerderij waarvan het achterhuis is omgetoverd tot een unieke gastenaccommodatie. Gelegen net buiten het dorp Heino in de provincie Overijssel, biedt onze B&B een authentiek verblijf in de prachtige Sallandse regio.",
+    "storyP2": "Omringd door weilanden, akkers en schilderachtige fiets- en wandelroutes is Banninkhoeve de ideale uitvalsbasis voor natuurliefhebbers. De bruisende steden Zwolle en Deventer liggen op korte rijafstand, terwijl de rust van het platteland voor de deur ligt.",
+    "storyP3": "Uw gastvrouw Tea heet u van harte welkom met een persoonlijk onthaal en een heerlijk ontbijt met streekproducten en zelfgemaakte lekkernijen — met vegetarische, veganistische, glutenvrije en lactosevrije opties altijd op aanvraag beschikbaar.",
     "photoPlaceholder": "Foto van onze B&B",
     "testimonials": {
       "title": "Wat Onze Gasten Zeggen",
-      "testimonial1": "Geweldige ervaring! De kamer was prachtig en het ontbijt was heerlijk. Zeker voor herhaling vatbaar.",
+      "testimonial1": "Geweldige ervaring! De boerderij is prachtig en het ontbijt was heerlijk. Zeker voor herhaling vatbaar.",
       "author1": "Sarah M.",
-      "testimonial2": "De perfecte plek voor een weekendje weg. De gastheren waren ongelooflijk gastvrij en behulpzaam met lokale aanbevelingen.",
+      "testimonial2": "De perfecte plek voor een plattelandsuitje. Tea was ongelooflijk gastvrij en behulpzaam met lokale wandelroutes.",
       "author2": "James & Emily T.",
-      "testimonial3": "Prachtig pand met aandacht voor elk detail. De tuin is prachtig en de locatie kon niet beter zijn.",
+      "testimonial3": "Prachtig pand met aandacht voor elk detail. De tuin is prachtig en de locatie kon niet beter zijn voor fietsen.",
       "author3": "Michael R."
     }
   },
@@ -91,12 +91,12 @@
     "title": "Neem Contact Op",
     "getInTouch": "Neem Contact Met Ons Op",
     "address": "Adres",
-    "addressLine1": "Hoofdstraat 123",
-    "addressLine2": "Stad, Provincie 12345",
+    "addressLine1": "Kleinjansweg 6",
+    "addressLine2": "8141PN Heino, Overijssel, Nederland",
     "phone": "Telefoon",
-    "phoneNumber": "(555) 123-4567",
+    "phoneNumber": "[PHONE]",
     "email": "E-mail",
-    "emailAddress": "info@cozybnb.com",
+    "emailAddress": "[EMAIL]",
     "sendMessage": "Stuur ons een Bericht",
     "form": {
       "name": "Naam *",
@@ -108,8 +108,8 @@
       "submit": "Verstuur Bericht"
     },
     "findUs": "Vind Ons",
-    "successToast": "Bericht succesvol verzonden! We nemen spoedig contact met u op.",
-    "errorToast": "Verzenden mislukt. Probeer het opnieuw."
+    "successToast": "Bedankt! We nemen snel contact met u op.",
+    "errorToast": "Er is iets misgegaan. Probeer het opnieuw."
   },
   "rooms": {
     "title": "Onze Kamers",
@@ -159,9 +159,9 @@
       "submit": "Boekingsaanvraag Versturen",
       "cancel": "Annuleren"
     },
-    "bestRate": "💰 Beste Prijs Gegarandeerd Bij Direct Boeken!",
-    "callUs": "Bel (555) 123-4567",
-    "emailUs": "info@cozybnb.com",
+    "bestRate": "Beste Prijs Bij Direct Boeken!",
+    "callUs": "Bel [PHONE]",
+    "emailUs": "[EMAIL]",
     "noSpecialRequests": "Geen speciale verzoeken",
     "toBeConfirmed": "Nog te bevestigen",
     "successToast": "Boekingsaanvraag verzonden! We bevestigen de beschikbaarheid spoedig.",
@@ -180,7 +180,11 @@
       "selected": "Geselecteerd",
       "available": "Beschikbaar"
     },
-    "upcomingBookings": "Aankomende Boekingen"
+    "upcomingBookings": "Aankomende Boekingen",
+    "refreshAvailability": "Beschikbaarheid Verversen",
+    "refreshing": "Verversen...",
+    "refreshSuccess": "Beschikbaarheid bijgewerkt!",
+    "refreshWait": "Net bijgewerkt. Wacht even voordat u opnieuw ververst."
   },
   "reviews": {
     "title": "Wat Onze Gasten Zeggen",
@@ -197,7 +201,7 @@
   },
   "error": {
     "somethingWrong": "Er is iets misgegaan",
-    "genericMessage": "Onze excuses, er is een onverwachte fout opgetreden. Probeer opnieuw of ga naar de startpagina.",
+    "genericMessage": "Onze excuses, er is een onverwachte fout opgegetreden. Probeer opnieuw of ga naar de startpagina.",
     "tryAgain": "Probeer opnieuw",
     "goHome": "Naar startpagina",
     "unableToLoadRooms": "Kan kamers niet laden",
