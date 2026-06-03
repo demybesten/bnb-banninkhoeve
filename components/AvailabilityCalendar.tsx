@@ -107,6 +107,14 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         }
     }
 
+    // Format a Date as YYYY-MM-DD using local time so it matches calendar date construction
+    const toDateKey = (d: Date): string => {
+        const y = d.getFullYear()
+        const m = String(d.getMonth() + 1).padStart(2, '0')
+        const day = String(d.getDate()).padStart(2, '0')
+        return `${y}-${m}-${day}`
+    }
+
     // Get all booked dates as a Set for quick lookup
     const getBookedDates = (): Set<string> => {
         const dates = new Set<string>()
@@ -114,8 +122,10 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             if (booking.status === 'confirmed') {
                 const start = new Date(booking.checkIn)
                 const end = new Date(booking.checkOut)
-                for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-                    dates.add(d.toISOString().split('T')[0])
+                const startKey = toDateKey(start)
+                const endKey = toDateKey(end)
+                for (let d = new Date(start); toDateKey(d) < endKey; d.setDate(d.getDate() + 1)) {
+                    dates.add(toDateKey(d))
                 }
             }
         })
@@ -124,34 +134,36 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
 
     // Check if a date is booked
     const isDateBooked = (date: Date): boolean => {
-        const dateStr = date.toISOString().split('T')[0]
-        return getBookedDates().has(dateStr)
+        return getBookedDates().has(toDateKey(date))
     }
 
     // Check if a date range is valid (no overlap with booked dates)
     const isRangeValid = (start: Date, end: Date): boolean => {
         const bookedDates = getBookedDates()
-        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-            if (bookedDates.has(d.toISOString().split('T')[0])) {
+        for (let d = new Date(start); toDateKey(d) < toDateKey(end); d.setDate(d.getDate() + 1)) {
+            if (bookedDates.has(toDateKey(d))) {
                 return false
             }
         }
         return true
     }
 
-    // Check if a date range overlaps with any bookings
+    // Check if a date range overlaps with any bookings.
+    // Both the user's selection and existing bookings treat the end date as
+    // the checkout day (exclusive), so a new check-in on an existing checkout
+    // day is allowed.
     const hasOverlap = (start: Date, end: Date): boolean => {
         const rangeStart = new Date(start)
         rangeStart.setHours(0, 0, 0, 0)
         const rangeEnd = new Date(end)
-        rangeEnd.setHours(23, 59, 59, 999)
+        rangeEnd.setHours(0, 0, 0, 0)
 
         return bookings.some(booking => {
             if (booking.status !== 'confirmed') return false
             const bStart = new Date(booking.checkIn)
             bStart.setHours(0, 0, 0, 0)
             const bEnd = new Date(booking.checkOut)
-            bEnd.setHours(23, 59, 59, 999)
+            bEnd.setHours(0, 0, 0, 0)
 
             return rangeStart < bEnd && rangeEnd > bStart
         })
