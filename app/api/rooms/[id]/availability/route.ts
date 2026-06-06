@@ -8,16 +8,21 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params
+    const { searchParams } = new URL(request.url)
+    const history = searchParams.get('history') === 'true'
 
     try {
+        const where: any = {
+            roomId: parseInt(id),
+        }
+
+        if (!history) {
+            where.checkOut = { gte: new Date() }
+            where.status = 'confirmed'
+        }
+
         const bookings = await prisma.booking.findMany({
-            where: {
-                roomId: parseInt(id),
-                checkOut: {
-                    gte: new Date() // Only future bookings
-                },
-                status: 'confirmed'
-            },
+            where,
             orderBy: {
                 checkIn: 'asc'
             }

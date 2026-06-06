@@ -2,9 +2,10 @@
 'use client'
 
 import { useState } from 'react'
-import { HiCalendar, HiPhone, HiMail } from 'react-icons/hi'
+import { HiCalendar, HiPhone } from 'react-icons/hi'
 import { toast } from 'react-hot-toast'
 import { useT } from '@/lib/i18n-client'
+import { getPriceBreakdown } from '@/lib/pricing'
 
 export default function BookingWidget({ roomName, roomPrice }: { roomName?: string, roomPrice?: number }) {
     const t = useT()
@@ -28,7 +29,7 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
             const { sendBookingEmail } = await import('@/lib/emailjs')
 
             const nights = calculateNights()
-            const totalPrice = roomPrice ? nights * roomPrice : 0
+            const pricing = getPriceBreakdown(nights, roomPrice || 0)
 
             await sendBookingEmail({
                 from_name: formData.name,
@@ -40,7 +41,7 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
                 guests: guests,
                 room_name: roomName || 'Room',
                 nights: nights,
-                total_price: totalPrice > 0 ? `$${totalPrice}` : t.booking.toBeConfirmed,
+                total_price: pricing.total > 0 ? `€${pricing.total}` : t.booking.toBeConfirmed,
             })
 
             toast.success(t.booking.successToast)
@@ -61,7 +62,7 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
     }
 
     const nights = calculateNights()
-    const totalPrice = roomPrice ? nights * roomPrice : 0
+    const pricing = getPriceBreakdown(nights, roomPrice || 0)
     const nightsLabel = nights === 1 ? t.booking.night : t.booking.nights
 
     return (
@@ -118,12 +119,20 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
                 {nights > 0 && roomPrice && (
                     <div className="bg-amber-50 rounded-lg p-4">
                         <div className="flex justify-between text-sm mb-2">
-                            <span>${roomPrice} × {nights} {nightsLabel}</span>
-                            <span className="font-semibold">${totalPrice}</span>
+                            <span>€{roomPrice} × {nights} {nightsLabel}</span>
+                            <span className={pricing.hasDiscount ? 'line-through text-gray-400' : 'font-semibold'}>
+                                €{pricing.subtotal}
+                            </span>
                         </div>
+                        {pricing.hasDiscount && (
+                            <div className="flex justify-between text-sm mb-2 text-green-700">
+                                <span>{t.booking.discount}</span>
+                                <span>−€{pricing.discount}</span>
+                            </div>
+                        )}
                         <div className="border-t pt-2 flex justify-between">
                             <span className="font-semibold">{t.booking.total}</span>
-                            <span className="font-bold text-amber-800">${totalPrice}</span>
+                            <span className="font-bold text-amber-800">€{pricing.total}</span>
                         </div>
                         <p className="text-xs text-gray-500 mt-2">
                             {t.booking.priceNote}
@@ -195,18 +204,11 @@ export default function BookingWidget({ roomName, roomPrice }: { roomName?: stri
                     </p>
                     <div className="space-y-2">
                         <a
-                            href="tel:+15551234567"
+                            href="tel:+31628472405"
                             className="flex items-center gap-2 text-gray-700 hover:text-amber-800 transition text-sm"
                         >
                             <HiPhone className="text-amber-800" />
                             <span>{t.booking.callUs}</span>
-                        </a>
-                        <a
-                            href="mailto:info@cozybnb.com"
-                            className="flex items-center gap-2 text-gray-700 hover:text-amber-800 transition text-sm"
-                        >
-                            <HiMail className="text-amber-800" />
-                            <span>{t.booking.emailUs}</span>
                         </a>
                     </div>
                 </div>

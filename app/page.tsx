@@ -17,7 +17,10 @@ export default async function Home() {
   return (
       <>
         {/* Hero Section */}
-        <section className="relative h-[70vh] bg-gradient-to-r from-amber-800 to-amber-600">
+        <section
+          className="relative h-[70vh] bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+        >
           <div className="absolute inset-0 bg-black opacity-40"></div>
           <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">
             <div className="text-white">
@@ -122,35 +125,6 @@ export default async function Home() {
               </div>
             </section>
         )}
-        {/* Why Book Direct Section */}
-        <section className="py-16 bg-green-50">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">{dict.home.bookDirect.title}</h2>
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div className="bg-white p-6 rounded-lg shadow">
-                <div className="text-4xl mb-4">💰</div>
-                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.bestPrice.title}</h3>
-                <p className="text-gray-600">
-                  {dict.home.bookDirect.bestPrice.description}
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <div className="text-4xl mb-4">🎁</div>
-                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.perks.title}</h3>
-                <p className="text-gray-600">
-                  {dict.home.bookDirect.perks.description}
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow">
-                <div className="text-4xl mb-4">📞</div>
-                <h3 className="text-xl font-semibold mb-2">{dict.home.bookDirect.service.title}</h3>
-                <p className="text-gray-600">
-                  {dict.home.bookDirect.service.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
       </>
   )
 }

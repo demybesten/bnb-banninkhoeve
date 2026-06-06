@@ -68,10 +68,7 @@ export default function ContactPage() {
                                 <h3 className="text-xl font-semibold mb-2">📞 {t.contact.phone}</h3>
                                 <p className="text-gray-700">{t.contact.phoneNumber}</p>
                             </div>
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2">✉️ {t.contact.email}</h3>
-                                <p className="text-gray-700">{t.contact.emailAddress}</p>
-                            </div>
+
                         </div>
                     </div>
 

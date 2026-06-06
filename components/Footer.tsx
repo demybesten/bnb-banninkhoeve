@@ -18,7 +18,6 @@ export default async function Footer() {
                         <p>{t.footer.address}</p>
                         <p>{t.footer.cityState}</p>
                         <p>{t.footer.phone}</p>
-                        <p>{t.footer.email}</p>
                     </div>
                     <div>
                         <h3 className="text-xl font-bold mb-4">{t.footer.quickLinks}</h3>

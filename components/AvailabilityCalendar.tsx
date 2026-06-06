@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { HiTrash, HiPlus, HiChevronLeft, HiChevronRight, HiRefresh } from 'react-icons/hi'
 import { useT } from '@/lib/i18n-client'
+import { getPriceBreakdown } from '@/lib/pricing'
 
 interface Booking {
     id: number
@@ -71,7 +72,10 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
 
     const fetchBookings = async () => {
         try {
-            const res = await fetch(`/api/rooms/${roomId}/availability`)
+            const url = isAdmin
+                ? `/api/rooms/${roomId}/availability?history=true`
+                : `/api/rooms/${roomId}/availability`
+            const res = await fetch(url)
             if (res.ok) {
                 const data = await res.json()
                 setBookings(data)
@@ -132,6 +136,27 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         return dates
     }
 
+    // Get tooltip text for a booked date (admin hover)
+    const getBookingTooltip = (date: Date): string | null => {
+        const dateKey = toDateKey(date)
+        const matches: string[] = []
+        bookings.forEach(booking => {
+            if (booking.status !== 'confirmed') return
+            const start = new Date(booking.checkIn)
+            const end = new Date(booking.checkOut)
+            const startKey = toDateKey(start)
+            const endKey = toDateKey(end)
+            if (dateKey >= startKey && dateKey < endKey) {
+                let label = booking.guestName || 'Blocked'
+                if (booking.source && booking.source !== 'manual') {
+                    label += ` (${booking.source})`
+                }
+                matches.push(label)
+            }
+        })
+        return matches.length > 0 ? matches.join('\n') : null
+    }
+
     // Check if a date is booked
     const isDateBooked = (date: Date): boolean => {
         return getBookedDates().has(toDateKey(date))
@@ -173,46 +198,72 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
     const handleDateClick = (date: Date) => {
         if (isAdmin || isDateBooked(date) || date < new Date(new Date().setHours(0,0,0,0))) return
 
-        if (selectedStart && !selectedEnd && date.getTime() === selectedStart.getTime()) {
-            setSelectedStart(null)
-            return
-        }
-
-        if (selectedEnd && date.getTime() === selectedEnd.getTime()) {
-            setSelectedEnd(null)
-            return
-        }
-
-        if (selectedStart && date.getTime() === selectedStart.getTime()) {
-            setSelectedStart(null)
-            setSelectedEnd(null)
-            return
-        }
-
-        if (!selectedStart || (selectedStart && selectedEnd)) {
-            setSelectedStart(date)
-            setSelectedEnd(null)
-        } else {
+        // --- Both start and end are already selected ---
+        if (selectedStart && selectedEnd) {
+            // Click on start date → clear both (reset)
+            if (date.getTime() === selectedStart.getTime()) {
+                setSelectedStart(null)
+                setSelectedEnd(null)
+                return
+            }
+            // Click on end date → clear only end, keep start
+            if (date.getTime() === selectedEnd.getTime()) {
+                setSelectedEnd(null)
+                return
+            }
+            // Click before start → extend start backward
             if (date < selectedStart) {
-                const tempStart = date
-                const tempEnd = selectedStart
-
-                if (hasOverlap(tempStart, tempEnd)) {
+                if (hasOverlap(date, selectedEnd)) {
                     toast.error(t.booking.overlapError)
                     return
                 }
-
-                setSelectedStart(tempStart)
-                setSelectedEnd(tempEnd)
-            } else {
+                setSelectedStart(date)
+                return
+            }
+            // Click after end → extend end forward
+            if (date > selectedEnd) {
                 if (hasOverlap(selectedStart, date)) {
                     toast.error(t.booking.overlapError)
                     return
                 }
-
                 setSelectedEnd(date)
+                return
             }
+            // Click between start and end → reset selection to this date as new start
+            setSelectedStart(date)
+            setSelectedEnd(null)
+            return
         }
+
+        // --- Only start is selected ---
+        if (selectedStart && !selectedEnd) {
+            // Click same date → deselect
+            if (date.getTime() === selectedStart.getTime()) {
+                setSelectedStart(null)
+                return
+            }
+            // Click before start → swap (this date becomes start, old start becomes end)
+            if (date < selectedStart) {
+                if (hasOverlap(date, selectedStart)) {
+                    toast.error(t.booking.overlapError)
+                    return
+                }
+                setSelectedEnd(new Date(selectedStart))
+                setSelectedStart(date)
+                return
+            }
+            // Click after start → set as end date
+            if (hasOverlap(selectedStart, date)) {
+                toast.error(t.booking.overlapError)
+                return
+            }
+            setSelectedEnd(date)
+            return
+        }
+
+        // --- Nothing selected → set as start ---
+        setSelectedStart(date)
+        setSelectedEnd(null)
     }
 
     // Check if a date is in the selected range
@@ -231,9 +282,12 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
         return selectedEnd?.getTime() === date.getTime()
     }
 
-    // Format date for display
+    // Format date for display (dd/mm/yyyy)
     const formatDate = (date: Date): string => {
-        return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+        const d = String(date.getDate()).padStart(2, '0')
+        const m = String(date.getMonth() + 1).padStart(2, '0')
+        const y = date.getFullYear()
+        return `${d}/${m}/${y}`
     }
 
     // Calculate nights
@@ -252,7 +306,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
             const { sendBookingEmail } = await import('@/lib/emailjs')
 
             const nights = calculateNights()
-            const totalPrice = roomPrice ? nights * roomPrice : 0
+            const pricing = getPriceBreakdown(nights, roomPrice || 0)
 
             await sendBookingEmail({
                 from_name: bookingForm.name,
@@ -264,7 +318,7 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 guests: bookingForm.guests,
                 room_name: roomName || `Room #${roomId}`,
                 nights: nights,
-                total_price: totalPrice > 0 ? `$${totalPrice}` : t.booking.toBeConfirmed,
+                total_price: pricing.total > 0 ? `€${pricing.total}` : t.booking.toBeConfirmed,
             })
 
             toast.success(t.booking.successToastAlt)
@@ -381,7 +435,19 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 <div className="mt-2">
                     <p className="text-sm text-gray-600">
                         {nights} {nights === 1 ? t.booking.night : t.booking.nights}
-                        {roomPrice && ` · $${roomPrice}/${t.booking.night} · ${t.booking.total}: $${nights * roomPrice}`}
+                        {roomPrice && (() => {
+                            const p = getPriceBreakdown(nights, roomPrice)
+                            return (
+                                <span>
+                                    {' · '}€{roomPrice}/{t.booking.night}
+                                    {p.hasDiscount ? (
+                                        <span>{' · '}{t.booking.total}: <span className="line-through text-gray-400">€{p.subtotal}</span> <span className="font-semibold text-green-700">€{p.total}</span></span>
+                                    ) : (
+                                        <span>{' · '}{t.booking.total}: €{p.total}</span>
+                                    )}
+                                </span>
+                            )
+                        })()}
                     </p>
                     <button
                         onClick={() => {
@@ -445,11 +511,19 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                             <p className="text-sm"><strong>{t.booking.bookingSummary.checkIn}</strong> {selectedStart && formatDate(selectedStart)}</p>
                             <p className="text-sm"><strong>{t.booking.bookingSummary.checkOut}</strong> {selectedEnd && formatDate(selectedEnd)}</p>
                             <p className="text-sm"><strong>{t.booking.bookingSummary.nights}</strong> {nights}</p>
-                            {roomPrice && (
-                                <p className="text-sm font-semibold text-amber-800">
-                                    <strong>{t.booking.bookingSummary.estimatedTotal}</strong> ${nights * roomPrice}
-                                </p>
-                            )}
+                            {roomPrice && (() => {
+                                const p = getPriceBreakdown(nights, roomPrice)
+                                return (
+                                    <p className="text-sm font-semibold text-amber-800">
+                                        <strong>{t.booking.bookingSummary.estimatedTotal}</strong>{' '}
+                                        {p.hasDiscount ? (
+                                            <span><span className="line-through text-gray-400">€{p.subtotal}</span> €{p.total}</span>
+                                        ) : (
+                                            <span>€{p.total}</span>
+                                        )}
+                                    </p>
+                                )
+                            })()}
                         </div>
 
                         <form onSubmit={handleBookingSubmit} className="space-y-3">
@@ -543,14 +617,16 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                             key={day}
                             onClick={() => clickable && handleDateClick(date)}
                             disabled={!clickable && !isAdmin}
+                            title={isAdmin && isBooked ? (getBookingTooltip(date) ?? undefined) : undefined}
                             className={`
                 h-12 flex items-center justify-center rounded-lg text-sm relative transition-all
                 ${isBooked ? 'bg-red-100 text-red-800 cursor-not-allowed' : ''}
-                ${isPast && !isToday ? 'opacity-30 cursor-not-allowed' : ''}
+                ${isPast && !isToday && !isAdmin ? 'opacity-30 cursor-not-allowed' : ''}
                 ${inRange && !isBooked ? 'bg-amber-200 text-amber-900' : ''}
                 ${isStart || isEnd ? 'bg-amber-800 text-white font-bold' : ''}
                 ${isToday ? 'ring-2 ring-amber-500 font-bold' : ''}
                 ${!isBooked && !isPast && !inRange ? 'bg-gray-50 text-gray-700 hover:bg-amber-100 cursor-pointer' : ''}
+                ${!isBooked && isPast && isAdmin && !inRange ? 'bg-gray-100 text-gray-500' : ''}
               `}
                         >
                             {day}
@@ -581,12 +657,18 @@ export default function AvailabilityCalendar({ roomId, roomName, roomPrice, room
                 <div className="mt-6 border-t pt-4">
                     <h4 className="font-semibold mb-3">{t.calendar.upcomingBookings}</h4>
                     <div className="space-y-2">
-                        {bookings.map(booking => (
+                        {bookings.filter(booking => {
+                            const monthStart = new Date(year, month, 1)
+                            const monthEnd = new Date(year, month + 1, 1)
+                            const checkIn = new Date(booking.checkIn)
+                            const checkOut = new Date(booking.checkOut)
+                            return checkIn < monthEnd && checkOut > monthStart
+                        }).map(booking => (
                             <div key={booking.id} className="flex justify-between items-center bg-gray-50 p-3 rounded-lg text-sm">
                                 <div>
                                     <div className="flex items-center gap-2">
                                         <p className="font-medium">
-                                            {new Date(booking.checkIn).toLocaleDateString('en-US')} → {new Date(booking.checkOut).toLocaleDateString('en-US')}
+                                            {formatDate(new Date(booking.checkIn))} → {formatDate(new Date(booking.checkOut))}
                                         </p>
                                         {booking.source && booking.source !== 'manual' && (
                                             <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">

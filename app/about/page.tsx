@@ -1,4 +1,5 @@
 // app/about/page.tsx
+import Image from 'next/image'
 import { getTranslations, detectLocale } from '@/lib/i18n-server'
 
 export default async function AboutPage() {
@@ -19,8 +20,13 @@ export default async function AboutPage() {
                             <p>{dict.about.storyP3}</p>
                         </div>
                     </div>
-                    <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-                        <p className="text-gray-500 text-xl">{dict.about.photoPlaceholder}</p>
+                    <div className="relative rounded-lg overflow-hidden h-96">
+                        <Image
+                            src="/about-bb.jpg"
+                            alt={dict.about.photoPlaceholder}
+                            fill
+                            className="object-cover"
+                        />
                     </div>
                 </div>
 
